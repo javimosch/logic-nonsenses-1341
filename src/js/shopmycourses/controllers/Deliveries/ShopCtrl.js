@@ -7,7 +7,7 @@ angular.module('shopmycourse.controllers')
  * @description Sélection du magasin pour une ou plusieurs propositions de livraison
 */
 
-.controller('DeliveriesShopCtrl', function($scope, $state, $ionicLoading, $ionicPopup, $cordovaGeolocation, toastr, ShopAPI, CurrentAvailability, $timeout) {
+.controller('DeliveriesShopCtrl', function($scope, $state, $cordovaGeolocation, toastr, ShopAPI, CurrentAvailability, $timeout) {
 
   /**
    * Initialisation de la recherche de magasins

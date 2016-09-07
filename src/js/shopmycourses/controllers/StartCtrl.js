@@ -16,5 +16,7 @@ angular.module('shopmycourse.controllers')
     CurrentAddress.init();
     $state.go('tabs.home');
   }
+  
+  console.log('start ctrl')
 
 })

@@ -1,11 +1,10 @@
 // Ionic Shop My Course App
 
 angular.module('shopmycourse', [
-  'ionic',
-  'jrCrop',
+  //'jrCrop',
+  'ui.router',
   'toastr',
   'ngLodash',
-  'ngCordova',
   'angularMoment',
   'LocalForageModule',
   'shopmycourse.filters',
@@ -15,6 +14,7 @@ angular.module('shopmycourse', [
   'shopmycourse.directives'
 ])
 
+/*
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -27,17 +27,18 @@ angular.module('shopmycourse', [
       StatusBar.styleDefault();
     }
   });
-})
+})*/
 
 .config(function ($httpProvider) {
   $httpProvider.interceptors.push('HTTPInterceptor');
 })
 
+/*
 .config(function($ionicConfigProvider) {
   $ionicConfigProvider.backButton.previousTitleText(false).text(' ').icon('icon-smc-back');
   $ionicConfigProvider.tabs.position('bottom');
   $ionicConfigProvider.views.swipeBackEnabled(false);
-})
+})*/
 
 .config(function(toastrConfig) {
   angular.extend(toastrConfig, {

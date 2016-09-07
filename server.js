@@ -9,6 +9,10 @@ var config = require('./config.js');
 var btoa = require('btoa');
 var fs = require('fs');
 
+var dest = 'dist';
+if (PROD) {
+	dest = 'dist-production';
+}
 
 
 //CORS
@@ -24,8 +28,6 @@ app.all('*', function(req, res, next) {
 });
 
 
-
-//
 function getPath(s) {
 	try {
 		return fs.realpathSync(s);
@@ -39,96 +41,104 @@ function replaceAll(target, search, replacement) {
 	return target.replace(new RegExp(search, 'g'), replacement);
 };
 //
-var appStaticResPaths = ['img', 'fonts', 'images', 'includes', 'files','templates'];
+
+//static
+app.use('/', express.static('./' + dest));
+//vendor
+app.use('/vendor', express.static('./vendor'));
+app.use('/bower', express.static('./bower'));
+var _route = '';
+Object.keys(config.apps).forEach(appName => {
+	//each prj has /vendor
+	_route = '/' + appName + '/vendor';
+	app.use(_route, express.static('./vendor'));
+	console.log('static-content - vendor - routing ' + _route);
+});
+//root route render APP_NAME index
+app.get('/', function(req, res, next) {
+	res.sendFile(process.env.APP_NAME + '/index.html', {
+		root: __dirname + '/' + dest
+	});
+});
+
+var appStaticResPaths = ['img', 'fonts', 'images', 'includes', 'files', 'templates', 'lib', 'styles'];
 appStaticResPaths.forEach(n => {
 	Object.keys(config.apps).forEach(appName => {
 		var path = getPath(process.cwd() + '/src/res/' + appName + '/' + n);
 		if (path == false) return;
 		var route = '/' + appName + '/' + n;
 		app.use(route, express.static(path));
-		console.log('static-content - routing ' + route);
-
-		app.get('/' + appName + '/partial/:name', function(req, res) {
-			var name = req.params.name;
-			var url = req.protocol + '://' + req.get('host');
+		console.log('static-path', route);
 
 
-			//var html = fs.readFileSync(process.cwd() + '/src/res/' + appName + '/includes/' + name);
 
-			fs.readFile(process.cwd() + '/src/res/' + appName + '/includes/' + name,'utf-8', function(err, page) {
-				res.writeHead(200, {
-					'Content-Type': 'text/html'
-				});
-				if(err) {
-					page = 'error';
-					console.log(err);
-				}
-				res.write(replaceAll(page, 'href="', 'href="' + url + '/'+appName+'/partial/'));
-				res.end();
+
+		app.get('/' + appName, function(req, res, next) {
+			res.sendFile('/' + appName + '/index.html', {
+				root: __dirname + '/' + dest
 			});
-
-			//res.sendFile(process.cwd() + '/src/res/' + appName + '/includes/' + name);
 		});
 
+		//app root (if any)
+		app.get('/' + appName + "/*", function(req, res, next) {
+			res.sendFile('/' + appName + '/app/index.html', {
+				root: __dirname + '/' + dest
+			});
+		});
 
 	});
 });
 
-var _route = '';
-Object.keys(config.apps).forEach(appName => {
-	_route = '/' + appName + '/src';
-	app.use(_route, express.static('./src'));
-	console.log('static-content - src - routing ' + _route);
 
-	_route = '/' + appName + '/vendor';
-	app.use(_route, express.static('./vendor'));
-	console.log('static-content - vendor - routing ' + _route);
+//Allow projects to fetch html templates from /templates/[path]
+//Search in the default (APP_NAME) project under src/res/templates
+var CURRENT_APP_NAME = process.env.APP_NAME || '[DEFAULT_PROJECT_NAME]';
+app.get('/templates/:name', function(req, res) {
+	var name = req.params.name;
+	var url = req.protocol + '://' + req.get('host');
+	fs.readFile(process.cwd() + '/src/res/' + CURRENT_APP_NAME + '/templates/' + name, 'utf-8', function(err, page) {
+		res.writeHead(200, {
+			'Content-Type': 'text/html'
+		});
+		if (err) {
+			page = 'error';
+			console.log(err);
+		}
+		//res.write(replaceAll(page, 'href="', 'href="' + url + '/' + appName + '/partial/'));
+		res.write(page);
+		res.end();
+	});
 });
 
-//
-var dest = 'dist';
-if (PROD) {
-	dest = 'dist-production';
+var ROOT_MODE = process.env.ROOT_MODE && process.env.ROOT_MODE.toString() == '1' || false;
+if (ROOT_MODE) {
+
+	//STATIC
+	appStaticResPaths.forEach(n => {
+		var path = getPath(process.cwd() + '/src/res/' + CURRENT_APP_NAME + '/' + n);
+		if (path == false) return;
+		var route = '/' + n;
+		app.use(route, express.static(path));
+		console.log('static-path (ROOT_MODE)', route);
+	});
+
+
+	app.get('/', function(req, res, next) {
+		res.sendFile('/index.html', {
+			root: __dirname + '/' + dest
+		});
+	});
+
+	//app root (if any)
+	app.get('/*', function(req, res, next) {
+		res.sendFile('/app/index.html', {
+			root: __dirname + '/' + dest
+		});
+	});
 }
 
-
-
-
-
-
-
-app.use('/', express.static('./' + dest));
-
-app.use('/prod', express.static('./dist-production'));
-
-app.use('/src', express.static('./src'));
-app.use('/res', express.static('./src/res'));
-app.use('/vendor', express.static('./vendor'));
-
-app.get('/config', function(req, res) {
-	var LIVE = process.env.STRIPE_LIVE && process.env.STRIPE_LIVE.toString() == '1' || false;
-	var config = {
-		STPK: (LIVE) ? process.env.STPK : process.env.STTPK
-	};
-	if (process.env.serverURL) {
-		config.serverURL = process.env.serverURL;
-	}
-	var payload = {
-		config: btoa(JSON.stringify(config))
-	};
-	res.setHeader('Content-type', 'text/plain');
-	res.charset = 'UTF-8';
-	res.write(btoa(JSON.stringify(payload)));
-	res.end();
-});
-
-if (process.env.ENABLE_WS && process.env.ENABLE_WS.toString() === '1') {
-	require('./lib/ws/ss-ws-main').configure(http);
-	console.log('ss websocket enabled.');
-}
 
 http.listen(port, function() {
 	console.log('static-content - Production? ' + (PROD ? 'Oui!' : 'Non!'));
-	console.log('static-content - serverURL', process.env.serverURL || 'http://localhost:5000');
 	console.log('static-content - listening on port ' + port + '!');
 });

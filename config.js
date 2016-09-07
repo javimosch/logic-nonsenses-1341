@@ -1,4 +1,7 @@
 var PROD = process.env.PROD && process.env.PROD.toString() == '1' || false;
+var ROOT_MODE = process.env.ROOT_MODE && process.env.ROOT_MODE.toString() == '1' || false;
+ROOT_MODE = ROOT_MODE || PROD;
+
 var fs = require('fs');
 var configsFileNames = fs.readdirSync(process.cwd() + '/configs');
 var config = {
@@ -10,7 +13,7 @@ configsFileNames.forEach(path => {
 	config.apps = config.apps||{};
 	config.apps[n] = require(process.cwd() + '/configs/' + path);
 	if (!config.apps[n].root) {
-		if (PROD) {
+		if (ROOT_MODE) {
 			config.apps[n].root = '/';
 		}
 		else {
@@ -20,7 +23,7 @@ configsFileNames.forEach(path => {
 	}
 	if (!config.apps[n].res) {
 
-		if (PROD) {
+		if (ROOT_MODE) {
 			config.apps[n].res = '/';
 		}
 		else {

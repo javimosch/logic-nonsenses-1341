@@ -1,19 +1,23 @@
 angular.module('shopmycourse.routes', [])
 
-.config(function($stateProvider, $urlRouterProvider) {
-
+.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+  $locationProvider.html5Mode(true);
+  
+  var ROOT = window.ROOT?(window.ROOT||'').slice(1,(window.ROOT||'').length-1):'';
+  console.log('ROOT',ROOT);
+  
   $stateProvider
 
-  .state('tabs', {
-    url: '/tabs',
-    templateUrl: window._STATIC + 'templates/TabBar.html',
+    .state('tabs', {
+    url: ROOT+ '/tabs',
+    templateUrl: ROOT+  'templates/TabBar.html',
     abstract: true,
     resolve: {
-      currentUser: function (CurrentUser) {
+      currentUser: function(CurrentUser) {
         var promise = CurrentUser.init(function() {});
         return promise;
       },
-      currentDelivery: function (CurrentDelivery) {
+      currentDelivery: function(CurrentDelivery) {
         var promise = CurrentDelivery.init(function() {});
         return promise;
       }
@@ -21,97 +25,97 @@ angular.module('shopmycourse.routes', [])
   })
 
   .state('tabs.home', {
-    url: '/home',
+    url: ROOT+ '/home',
     cache: false,
     views: {
       'home-tab': {
-        templateUrl: window._STATIC + 'templates/Home.html',
+        templateUrl: ROOT+  'templates/Home.html',
         controller: 'HomeCtrl'
       }
     }
   })
 
   .state('tabs.deliveries', {
-    url: '/deliveries',
+    url: ROOT+ '/deliveries',
     cache: false,
     views: {
       'deliveries-tab': {
-        templateUrl: window._STATIC + 'templates/Deliveries/List.html',
+        templateUrl: ROOT+  'templates/Deliveries/List.html',
         controller: 'DeliveriesListCtrl'
       }
     }
   })
 
   .state('tabs.shopdelivery', {
-    url: '/delivery/create/shop',
+    url: ROOT+ '/delivery/create/shop',
     views: {
       'home-tab': {
-        templateUrl: window._STATIC + 'templates/Deliveries/Shop.html',
+        templateUrl: ROOT+  'templates/Deliveries/Shop.html',
         controller: 'DeliveriesShopCtrl'
       }
     }
   })
 
   .state('tabs.scheduledelivery', {
-    url: '/delivery/create/schedule',
+    url: ROOT+ '/delivery/create/schedule',
     cache: false,
     views: {
       'home-tab': {
-        templateUrl: window._STATIC + 'templates/Deliveries/Schedule.html',
+        templateUrl: ROOT+  'templates/Deliveries/Schedule.html',
         controller: 'DeliveriesScheduleCtrl'
       }
     }
   })
 
   .state('tabs.confirmdelivery', {
-    url: '/delivery/create/confirm',
+    url: ROOT+ '/delivery/create/confirm',
     views: {
       'home-tab': {
-        templateUrl: window._STATIC + 'templates/Deliveries/Confirm.html',
+        templateUrl: ROOT+  'templates/Deliveries/Confirm.html',
         controller: 'DeliveriesConfirmCtrl'
       }
     }
   })
 
   .state('tabs.delivery', {
-    url: '/delivery/:idDelivery',
+    url: ROOT+ '/delivery/:idDelivery',
     cache: false,
     views: {
       'deliveries-tab': {
-        templateUrl: window._STATIC + 'templates/Deliveries/Show.html',
+        templateUrl: ROOT+  'templates/Deliveries/Show.html',
         controller: 'DeliveriesShowCtrl'
       }
     }
   })
 
   .state('tabs.orders', {
-    url: '/orders',
+    url: ROOT+ '/orders',
     cache: false,
     views: {
       'orders-tab': {
-        templateUrl: window._STATIC + 'templates/Orders/List.html',
+        templateUrl: ROOT+  'templates/Orders/List.html',
         controller: 'OrdersListCtrl'
       }
     }
   })
 
   .state('tabs.order', {
-    url: '/order/:idOrder',
+    url: ROOT+ '/order/:idOrder',
     cache: false,
     views: {
       'orders-tab': {
-        templateUrl: window._STATIC + 'templates/Orders/Show.html',
+        templateUrl: ROOT+  'templates/Orders/Show.html',
         controller: 'OrdersShowCtrl'
       }
     }
   })
 
   .state('tabs.orderpayment', {
-    url: '/order/:idOrder/payment',
+    url: ROOT+ '/order/:idOrder/payment',
     cache: false,
     views: {
       'orders-tab': {
-        templateUrl: window._STATIC + 'templates/Profile/EditCreditCard.html',
+        templateUrl: ROOT+  'templates/Profile/EditCreditCard.html',
         controller: 'ProfileEditCreditCardCtrl'
       }
     }
@@ -119,26 +123,26 @@ angular.module('shopmycourse.routes', [])
 
 
   .state('tabs.sendOrder', {
-    url: '/order/:idOrder/send',
+    url: ROOT+ '/order/:idOrder/send',
     views: {
       'orders-tab': {
-        templateUrl: window._STATIC + 'templates/Orders/Send.html',
+        templateUrl: ROOT+  'templates/Orders/Send.html',
         controller: 'OrdersSendCtrl'
       }
     }
   })
 
   .state('tabs.ordercontent', {
-    url: '/order/:idOrder/content',
+    url: ROOT+ '/order/:idOrder/content',
     cache: false,
     views: {
       'orders-tab': {
-        templateUrl: window._STATIC + 'templates/Orders/Content.html',
+        templateUrl: ROOT+  'templates/Orders/Content.html',
         controller: 'OrdersContentCtrl'
       }
     },
     resolve: {
-      currentCart: function (CurrentCart) {
+      currentCart: function(CurrentCart) {
         var promise = CurrentCart.init();
         return promise;
       }
@@ -146,52 +150,64 @@ angular.module('shopmycourse.routes', [])
   })
 
   .state('tabs.profile', {
-    url: '/profile',
+    url: ROOT+ '/profile',
     cache: false,
     views: {
       'profile-tab': {
-        templateUrl: window._STATIC + 'templates/Profile/Show.html',
+        templateUrl: ROOT+  'templates/Profile/Show.html',
         controller: 'ProfileShowCtrl'
       }
     }
   })
 
   .state('tabs.editprofile', {
-    url: '/profile/edit',
+    url: ROOT+ '/profile/edit',
     views: {
       'profile-tab': {
-        templateUrl: window._STATIC + 'templates/Profile/Edit.html',
+        templateUrl: ROOT+  'templates/Profile/Edit.html',
         controller: 'ProfileEditCtrl'
       }
     }
   })
 
   .state('tabs.editcreditcard', {
-    url: '/profile/creditcard/edit',
+    url: ROOT+ '/profile/creditcard/edit',
     views: {
       'profile-tab': {
-        templateUrl: window._STATIC + 'templates/Profile/EditCreditCard.html',
+        templateUrl: ROOT+  'templates/Profile/EditCreditCard.html',
         controller: 'ProfileEditCreditCardCtrl'
       }
     }
   })
 
   .state('tabs.editaddress', {
-    url: '/profile/address/edit',
+    url: ROOT+ '/profile/address/edit',
     views: {
       'profile-tab': {
-        templateUrl: window._STATIC + 'templates/Profile/EditAddress.html',
+        templateUrl: ROOT+  'templates/Profile/EditAddress.html',
         controller: 'ProfileEditAddressCtrl'
       }
     }
   })
 
   .state('start', {
-    url: '/start',
-    templateUrl: window._STATIC + 'templates/Start.html',
+    url: ROOT+ '/start',
+    templateUrl: ROOT+  'templates/Start.html',
     controller: 'StartCtrl',
     resolve: {
-      CurrentUserLoading: function (CurrentUser) {
+      CurrentUserLoading: function(CurrentUser) {
+        var promise = CurrentUser.init(function() {});
+        return promise;
+      }
+    }
+  })
+  
+  .state('start2', {
+    url: ROOT+ '/start2',
+    templateUrl: ROOT+  'templates/Start2.html',
+    controller: 'StartCtrl',
+    resolve: {
+      CurrentUserLoading: function(CurrentUser) {
         var promise = CurrentUser.init(function() {});
         return promise;
       }
@@ -199,59 +215,61 @@ angular.module('shopmycourse.routes', [])
   })
 
   .state('signin', {
-    url: '/profile/signin',
-    templateUrl: window._STATIC + 'templates/Profile/SignIn.html',
+    url: ROOT+ '/profile/signin',
+    templateUrl: ROOT+  'templates/Profile/SignIn.html',
     controller: 'ProfileSignInCtrl'
   })
 
   .state('signup', {
-    url: '/profile/signup',
-    templateUrl: window._STATIC + 'templates/Profile/SignUp.html',
+    url: ROOT+ '/profile/signup',
+    templateUrl: ROOT+  'templates/Profile/SignUp.html',
     controller: 'ProfileSignUpCtrl'
   })
 
   .state('tabs.scheduleorder', {
-    url: '/order/create/schedule',
+    url: ROOT+ '/order/create/schedule',
     views: {
       'home-tab': {
-        templateUrl: window._STATIC + 'templates/Orders/Schedule.html',
+        templateUrl: ROOT+  'templates/Orders/Schedule.html',
         controller: 'OrdersScheduleCtrl'
       }
     }
   })
 
   .state('tabs.addressorder', {
-    url: '/order/create/address',
+    url: ROOT+ '/order/create/address',
     cache: false,
     views: {
       'home-tab': {
-        templateUrl: window._STATIC + 'templates/Orders/Address.html',
+        templateUrl: ROOT+  'templates/Orders/Address.html',
         controller: 'OrdersAddressCtrl'
       }
     }
   })
 
   .state('tabs.shoporder', {
-    url: '/order/create/shop',
+    url: ROOT+ '/order/create/shop',
     cache: false,
     views: {
       'home-tab': {
-        templateUrl: window._STATIC + 'templates/Orders/Shop.html',
+        templateUrl: ROOT+  'templates/Orders/Shop.html',
         controller: 'OrdersShopCtrl'
       }
     }
   })
 
   .state('tabs.confirmorder', {
-    url: '/order/create/confirm',
+    url: ROOT+ '/order/create/confirm',
     views: {
       'home-tab': {
-        templateUrl: window._STATIC + 'templates/Orders/Confirm.html',
+        templateUrl: ROOT+  'templates/Orders/Confirm.html',
         controller: 'OrdersConfirmCvtrl'
       }
     }
   })
 
-$urlRouterProvider.otherwise('/start')
+  $urlRouterProvider.otherwise('/start')
+
+
 
 });

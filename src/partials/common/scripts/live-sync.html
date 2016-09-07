@@ -3,9 +3,9 @@
         /*global firebase*/
         /*global localStorage*/
         var isDevEnv = function() {
-            return window.location.origin.indexOf('maerp-javoche') !== -1;
+            return window.location.origin.indexOf('c9users') !== -1;
         }
-        if (!isDevEnv()) return;
+        if (!isDevEnv()) return console.log('live-sync','not-a-dev-enviroment');
         console.info('live-sync-enabled');
         var config = {
             apiKey: "AIzaSyD-bjaRCpVkEYnnLhdmfrkujMYe9PP46gQ",
@@ -13,7 +13,7 @@
             databaseURL: "https://project-8364615376455036555.firebaseio.com",
             storageBucket: "",
         };
-        var ref = firebase.initializeApp(config, 'staticstuff-reload').database().ref('{{signalName}}/signals/reload');
+        var ref = firebase.initializeApp(config, 'live-reload').database().ref('{{signalName}}/signals/reload');
         var counter = localStorage['livesync'] && parseInt(localStorage['livesync']) || 0;
         ref.on('value', function(snap) {
             if (snap.val() != counter) {

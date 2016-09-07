@@ -1,7 +1,7 @@
 {
-  "name": "staticstuff",
-  "version": "1.0.0",
-  "description": "staticstuff (multisite dev tool, realtime compilation, handlebars, ftp deploy)",
+  "name": "logic-nonsenses",
+  "version": "0.0.1",
+  "description": "based in staticstuff project.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -15,14 +15,9 @@
     "build": "PROD=1 node index.js",
     "dev": "node ./node_modules/concurrently/src/main.js --kill-others \"npm run start\" \"npm run server\"",
     "gitlog": "git log --graph --pretty=oneline --abbrev-commit",
-    "gab-dev": "app=getabiker PROD=0 npm run dev",
-    "gab-prod": "app=getabiker PROD=1 npm start; sh install-prod.sh getabiker",
-    "ssg-dev": "app=ssgui ENABLE_WS=1 PROD=0 npm run dev",
-    "ba-prod": "app=misitioba PROD=1 npm start",
-    "ba-dev": "app=misitioba PROD=0 npm run dev",
-    "ba-watch": "app=misitioba PROD=0 npm run start",
-    "rich-watch": "app=rich PROD=0 npm run start",
-    "clear": "node lib/he.task.clear.js"
+    "clear": "node lib/he.task.clear.js",
+    "local": "ROOT_MODE=1 ./dev.sh shopmycourses",
+    "release": "./build.sh shopmycourses"
   },
   "repository": {
     "type": "git",

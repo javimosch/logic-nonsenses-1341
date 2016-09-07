@@ -7,7 +7,7 @@ angular.module('shopmycourse.controllers')
  * @description Affichage d'une commande
 */
 
-.controller('OrdersShowCtrl', function($scope, $state, $ionicLoading, $ionicPopup, $rootScope, $stateParams, CurrentCart, CurrentDelivery, $ionicModal, OrderStore, $interval, $cordovaSms, DeliveryAPI, CurrentUser, $state, $ionicSlideBoxDelegate) {
+.controller('OrdersShowCtrl', function($scope, $state, $ionicLoading, $ionicPopup, $rootScope, $stateParams, CurrentCart, CurrentDelivery, $ionicModal, OrderStore, $interval, $cordovaSms, DeliveryAPI, CurrentUser, $ionicSlideBoxDelegate) {
 
   $scope.order = {};
   $scope.user = {};

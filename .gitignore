@@ -40,3 +40,5 @@ dist_ftp
 public
 ##add here your custom output directory
 .env
+
+bower

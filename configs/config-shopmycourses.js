@@ -1,5 +1,6 @@
     module.exports = {
         firebaseURL: 'getabiker',
+        signalName:'shopmycourses',
         CDN_CSS: [
             'https://fonts.googleapis.com/css?family=Roboto',
             'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css',

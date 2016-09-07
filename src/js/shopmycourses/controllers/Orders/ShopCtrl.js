@@ -7,7 +7,7 @@ angular.module('shopmycourse.controllers')
  * @description Sélection du magasin pour une demande de livraison
 */
 
-.controller('OrdersShopCtrl', function($rootScope, $scope, toastr, $state, $ionicModal, $ionicLoading, CurrentDelivery, ShopAPI, DeliveryRequestAPI, DeliveryRequestAPI, $timeout, OrderStore) {
+.controller('OrdersShopCtrl', function($rootScope, $scope, toastr, $state, $ionicModal, $ionicLoading, CurrentDelivery, ShopAPI, DeliveryRequestAPI, $timeout, OrderStore) {
 
   /**
    * Initialisation de la recherche de magasins
