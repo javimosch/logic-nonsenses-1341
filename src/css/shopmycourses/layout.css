@@ -24,14 +24,14 @@ html {
 }
 
 #content {
-    padding-bottom: 100px;
+    padding-bottom: 250px;
     /* ATTENTION! padding-bottom should be equal to the footer height (this keeps the footer from overlapping the content) */
     background: mintcream;
 }
 
 #main-container {
     background: mintcream;
-    min-height: 600px;
+    min-height: 300px;
 }
 
 #footer {

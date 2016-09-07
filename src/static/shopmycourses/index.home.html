@@ -2,28 +2,30 @@
 <html>
 
 <head>
-    {{> app.head}}
-    <base href="/">
+    {{>static.head}}
 </head>
 
-<body>
+<body class="static home">
+
+
     <div id="wrapper">
         <div id="content">
-            {{> app.header}}
+            {{>static.header}}
             <div class="container" id="main-container">
                 <div class="row">
                     <div class="col-xs-12 ">
-                        <ui-view></ui-view>
+                        {{>static.home}}
                     </div>
                 </div>
             </div>
         </div>
         <div id="footer">
-            {{> app.footer}}
+            {{>static.footer}}
         </div>
     </div>
 
-    {{> app.scripts}}
+    {{>static.scripts}}
+
 </body>
 
 </html>
