@@ -1,0 +1,39 @@
+<ion-view id="profile" title="Paramètres">
+    <ion-nav-buttons side="right">
+      <notifications></notifications>
+      <!-- <button class="button button-clear logout" ng-click="logout()">
+          <i class="icon ion-power"></i>
+      </button> -->
+    </ion-nav-buttons>
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <div class="item" id="profile-header">
+            <img class="profil-pic icon-smc-profile" data-ng-src="{{avatarBackground}}"></img>
+            <div class="name">{{user.firstname}} {{user.lastname}}</div>
+            <div class="edit"><a ui-sref="tabs.editprofile">Modifier le compte</a></div>
+        </div>
+        <div class="item" id="profile-information">
+            <div class="email"><i class="icon-smc-envelop"></i> {{user.email}}</div>
+            <div class="phone"><i class="icon-smc-phone"></i> {{user.phone}}</div>
+        </div>
+        <div class="item" id="profile-address">
+            <div class="address" ng-if="currentAddress.address"><i class="icon-smc-marker"></i> {{currentAddress.address}}, {{currentAddress.zip}} {{currentAddress.city}}</div>
+            <div class="edit"><a ui-sref="tabs.editaddress">Modifier l'adresse</a></div>
+        </div>
+        <ion-toggle id="profile-phone" toggle-class="toggle-positive" ng-change="togglePhone()" ng-true-value="true" ng-false-value="false" ng-model="user.share_phone">Partager mon numéro de téléphone</ion-toggle>
+        <div class="item" id="profile-creditcard" ui-sref="tabs.editcreditcard">
+            <div class="creditcard"><i class="icon-smc-card"></i> {{user.wallet.credit_card_display ? user.wallet.credit_card_display : 'Enregistrer ma carte'}} <i class="ion-chevron-right"></i></div>
+        </div>
+        <div class="item" id="profile-wallet">
+            <div class="wallet"><i class="ion-ios-cart"></i> Valeur du wallet : {{walletValue | number:2}} &euro;</div>
+        </div>
+        <div class="item" id="profile-privacy" ng-click="openPrivacy()">
+            <div class="privacy"><i class="ion-locked"></i> Charte de confidentialité</div>
+        </div>
+        <div class="item" id="profile-cgu" ng-click="openCGU()">
+            <div class="cgu"><i class="ion-compose"></i> Conditions générales d'utilisation</div>
+        </div>
+        <div class="item" id="profile-logout" ng-click="logout()">
+            <div class="logout"><i class="ion-power"></i> Se déconnecter </i></div>
+        </div>
+    </ion-content>
+</ion-view>

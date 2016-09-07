@@ -1,0 +1,40 @@
+<ion-view id="signin">
+  <ion-content overflow-scroll="false" padding="false" scroll="true">
+    <img src="/img/logo.png" class="logo"></i>
+    <div class="row row-center">
+      <div class="col text-center">
+          <div id="socialBox"></div>
+          <p><b>Connexion avec :</b></p>
+          <button class="button button-block button-positive button-facebook" ng-click="signInWithFacebook()">
+            Facebook
+          </button>
+          <button class="button button-block button-google" ng-click="signInWithGoogle()">
+            Google
+          </button>
+        </div>
+    </div>
+    <form class="list" name="signin">
+      <p><b>Ou utilisez votre email :</b></p>
+      <ion-list>
+        <!-- Email -->
+        <ion-item class="item item-input item-floating-label">
+          <span class="input-label">Email</span>
+          <input type="email" name="email" ng-model="user.email" placeholder="Email" ng-pattern="validation.email.pattern" required="required" autocomplete="off">
+        </ion-item>
+        <div class="error-message" ng-show="signin.email.$error.pattern">
+          <span><i class="icon ion-close-circled"></i> {{validation.email.message}}</span>
+        </div>
+        <!-- Mot de passe -->
+        <ion-item class="item item-input item-floating-label">
+          <span class="input-label">Mot de passe</span>
+          <input type="password" name="password" ng-model="user.password" placeholder="Mot de passe" ng-pattern="validation.password.pattern" required="required" autocomplete="off">
+        </ion-item>
+        <div class="error-message" ng-show="signin.password.$error.pattern">
+          <span><i class="icon ion-close-circled"></i> {{validation.password.message}}</span>
+        </div>
+      </ion-list>
+    </form>
+    <a ng-click="signInWithEmail()" class="button button-stable button-block" ng-disabled="signin.$invalid">Connexion</a>
+    <a ng-click="forgotPassword()" class="forgot-pwd">Mot de passe oublié ?</a>
+  </ion-content>
+</ion-view>
