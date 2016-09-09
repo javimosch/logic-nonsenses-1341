@@ -7,6 +7,7 @@ var heWatch = require('./lib/he').watch;
 var heOptions = require('./lib/he').options;
 var heLoads = require('./lib/he').load;
 var heConfig = require('./lib/he.config');
+var heUtils = require('./lib/he.utils');
 var PROD = process.env.PROD && process.env.PROD.toString() == '1' || false;
 var config = require(process.cwd() + '/config');
 //console.log('ENV',process.env.app);
@@ -16,9 +17,12 @@ var APPNAME = argv.app || process.env.app || config.app || process.env.APP_NAME;
 config.app = APPNAME;
 console.log('APP', APPNAME);
 
-fs.mkdirSync(process.cwd()+'/dist');
-fs.mkdirSync(process.cwd()+'/dist-production');
-fs.mkdirSync(process.cwd()+'/dist-production/'+APPNAME);
+
+
+
+heUtils.ensureDirectory(process.cwd()+'/dist');
+heUtils.ensureDirectory(process.cwd()+'/dist-production');
+heUtils.ensureDirectory(process.cwd()+'/dist-production/'+APPNAME);
 
 
 heOptions.setApp(config.app, config.apps[config.app]);
