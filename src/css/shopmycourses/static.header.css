@@ -10,3 +10,9 @@
     padding: 20px;
     margin-top: 50px;
 }
+
+
+.static #start{
+    width:200px;
+    margin: 0 auto;
+}

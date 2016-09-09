@@ -1,0 +1,19 @@
+.button-facebook {
+    background: #3b5998;
+    color: #fff;
+    border-color:transparent;
+}
+.button-facebook:hover{
+    border-color:transparent;
+}
+
+.button-google {
+    background: #d34836;
+    color: #fff;
+    border-color:transparent;
+}
+.button-google:hover {
+    background: #d34836;
+    color: #fff;
+    border-color:transparent;
+}

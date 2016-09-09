@@ -11,7 +11,10 @@
     "async": "^1.5.2",
     "ngCordova": "^0.1.24-alpha",
     "angular-resource": "^1.5.8",
-    "angular-ui-router": "^0.3.1"
+    "angular-ui-router": "^0.3.1",
+    "angular-strap": "^2.3.9",
+    "angular-animate": "^1.5.8",
+    "angular-motion": "^0.4.4"
   },
   "resolutions": {
     "moment": ">=2.8.0 <2.11.0"

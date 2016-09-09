@@ -5,6 +5,7 @@ angular.module('shopmycourse', [
   'ui.router',
   'toastr',
   'ngLodash',
+  'mgcrea.ngStrap',
   'angularMoment',
   'LocalForageModule',
   'shopmycourse.filters',

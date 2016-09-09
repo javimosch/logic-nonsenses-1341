@@ -24,7 +24,7 @@ html {
 }
 
 #content {
-    padding-bottom: 250px;
+    padding-bottom: 300px;
     /* ATTENTION! padding-bottom should be equal to the footer height (this keeps the footer from overlapping the content) */
     background: mintcream;
 }

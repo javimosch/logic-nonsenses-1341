@@ -1,0 +1,11 @@
+#logo,
+.logo {
+    max-width: 400px;
+    margin: 0 auto;
+    display: block;
+}
+
+.buttons-block {
+    max-width: 300px;
+    margin: 0 auto;
+}

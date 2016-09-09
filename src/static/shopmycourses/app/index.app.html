@@ -7,23 +7,28 @@
 </head>
 
 <body>
-    <div id="wrapper">
-        <div id="content">
-            {{> app.header}}
-            <div class="container" id="main-container">
-                <div class="row">
-                    <div class="col-xs-12 ">
-                        <ui-view></ui-view>
+    <div class="modal-shiftfix">
+
+
+        {{> app.scripts}}
+
+        <div id="wrapper">
+            <div id="content">
+                {{> app.header}}
+                <div class="container" id="main-container">
+                    <div class="row">
+                        <div class="col-xs-12 ">
+                            <ui-view></ui-view>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="footer">
-            {{> app.footer}}
+            <div id="footer">
+                {{> app.footer}}
+            </div>
         </div>
     </div>
 
-    {{> app.scripts}}
 </body>
 
 </html>

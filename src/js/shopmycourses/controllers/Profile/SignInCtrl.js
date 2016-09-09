@@ -7,7 +7,7 @@ angular.module('shopmycourse.controllers')
  * @description Page de connexion
  */
 
-.controller('ProfileSignInCtrl', function($scope, $rootScope, $state, toastr, $ionicLoading, $ionicPopup, $ionicModal, Authentication, Validation, CurrentUser, UserAPI) {
+.controller('ProfileSignInCtrl', function($scope, $modal, $rootScope, $state, toastr, Authentication, Validation, CurrentUser, UserAPI) {
 
   /**
    * Initialisation de la validation du formulaire
@@ -30,11 +30,14 @@ angular.module('shopmycourse.controllers')
    * @description Lancement de la connexion
    */
   $scope.signIn = function() {
-    $ionicLoading.show({
-      template: 'Nous vérifions vos identifiants...'
-    });
+
+    //$ionicLoading.show({
+    //      template: 'Nous vérifions vos identifiants...'
+    //});
+
     Authentication.login($scope.user, function(correct, errorMessage) {
-      $ionicLoading.hide();
+
+      //$ionicLoading.hide();
 
       if (correct) {
         $scope.init();
@@ -49,11 +52,6 @@ angular.module('shopmycourse.controllers')
 
   $scope.init();
 
-  $scope.initFirebaseUI = function() {
-    // FirebaseUI config.
-
-
-  }
 
   function catchFacebookSigInErrors(error) {
     // Handle Errors here.
@@ -67,51 +65,58 @@ angular.module('shopmycourse.controllers')
     console.log(errorCode, errorMessage, email, credential);
   }
 
+  var self = $scope;
+
+
+  $scope.handleSignInFacebookButton = function() {
+    $modal({
+      scope: $scope,
+      templateUrl: '/templates/Profile/ExternalServicesPopup.html',
+      show: true,
+      controller: function($scope) {
+        $scope.ok = function() {
+          self.signIn.signInWithFacebook();
+          $scope.$hide();
+        }
+        $scope.close = function() {
+          $scope.$hide();
+        }
+      }
+    });
+  }
+
   /**
    * @name $scope.signInWithFacebook
    * @description Connexion avec Facebook
    */
   $scope.signInWithFacebook = function() {
-    $ionicPopup.show({
-      templateUrl: 'templates/Profile/ExternalServicesPopup.html',
-      title: 'Connexion avec Facebook',
-      scope: $scope,
-      buttons: [{
-        text: 'Retour',
-        onTap: function(e) {
-          return (true);
-        }
-      }, {
-        text: 'OK',
-        type: 'button-positive',
-        onTap: function(e) {
+    var provider = new window.firebase.auth.FacebookAuthProvider();
+    window.firebase.auth().signInWithPopup(provider).then(function(result) {
+      var token = result.credential.accessToken;
+      var user = result.user;
 
-          var provider = new firebase.auth.FacebookAuthProvider();
-          return firebase.auth().signInWithPopup(provider).then(function(result) {
-            var token = result.credential.accessToken;
-            var user = result.user;
-            console.log(token, user);
+      console.info('logged', user);
 
-            $scope.user.auth_token = token;
-            $scope.user.auth_method = 'facebook';
-            $scope.signIn();
+      $scope.user.auth_token = token;
+      $scope.user.auth_method = 'facebook';
+      //$scope.signIn();
+      toastr.error('Logged', 'Connexion');
 
-          }).catch(catchFacebookSigInErrors);
-          return true;
-
-          facebookConnectPlugin.login(["email", "public_profile"], function(data) {
-            $scope.user.auth_token = data.authResponse.accessToken;
-            $scope.user.auth_method = 'facebook';
-            $scope.signIn();
-          }, function(error) {
-            toastr.error('Une erreur est survenue lors de la connexion via Facebook', 'Connexion');
-            console.log('Facebook login errors : ', error);
-          });
-          return (true);
-        }
-      }]
+      // ...
+    }).catch(function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      var email = error.email;
+      var credential = error.credential;
+      console.warn('error', errorCode, errorMessage, email, credential);
+      toastr.error('Une erreur est survenue lors de la connexion via Facebook', 'Connexion');
     });
+
+
+    return;
   };
+
+
 
   /**
    * @name $scope.signInWithGoogle
@@ -188,15 +193,20 @@ angular.module('shopmycourse.controllers')
 
   /**
    * Affichage des popups CGU et CGU Lemonway
-   */
-  $ionicModal.fromTemplateUrl('templates/CGU.html', {
+   **/
+  var CGUModal = $modal({
     scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.modal = modal;
+    templateUrl: '/templates/CGU.html',
+    show: false,
+    onHide: function(a, b, c) {
+
+    }
   });
+
+
   $scope.openCGU = function() {
-    $scope.modal.show();
+    //$scope.modal.show();
+    CGUModal.$promise.then(CGUModal.show);
   };
   $scope.openLemonWayCGU = function() {
     window.open('https://www.lemonway.fr/legal/conditions-generales-d-utilisation', '_system', 'location=yes');
@@ -206,4 +216,4 @@ angular.module('shopmycourse.controllers')
     $scope.modal.hide();
   };
 
-})
+});

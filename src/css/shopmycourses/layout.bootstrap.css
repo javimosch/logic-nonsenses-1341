@@ -9,3 +9,20 @@
     border-radius: 0px;
     margin: 20px;
 }
+
+
+
+
+.modal {
+  overflow-y: hidden; 
+}
+.modal-open .modal {
+  overflow-y: scroll;      
+}
+
+
+.modal-open .modal-shiftfix,
+.modal-open .modal-shiftfix .navbar-fixed-top,
+.modal-open .modal-shiftfix .navbar-fixed-bottom {
+  overflow-y: scroll;      
+}
