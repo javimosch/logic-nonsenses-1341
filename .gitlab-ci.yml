@@ -1,5 +1,9 @@
 before_script:
   - gem install dpl
+test:
+  type: test
+  script:
+  - npm run test
 dev:
   type: deploy
   script:

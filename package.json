@@ -1,11 +1,11 @@
 {
-  "name": "logic-nonsenses",
+  "name": "shopmycourses-web",
   "version": "0.0.1",
-  "description": "based in staticstuff project.",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "node lib/he.tests.js",
+    "test": "jasmine-node spec",
     "install-safe": "npm i --save $1 --no-bin-links",
     "commit": "git add . | git commit --allow-empty-message --all -m",
     "push": "git push $1 master",
@@ -22,19 +22,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/javimosch/handlexpress.git"
+    "url": "git+https://gitlab.com/shopmycourses/shopmycourses-web.git"
   },
   "keywords": [
     "handlebars",
     "express",
     "gui"
   ],
-  "author": "Javimosch",
+  "author": "Shopmycourses Team",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/javimosch/handlexpress/issues"
+    "url": ""
   },
-  "homepage": "https://github.com/javimosch/handlexpress#readme",
+  "homepage": "www.shopmycourses.com",
   "dependencies": {
     "angularfire": "^1.2.0",
     "babel-core": "^6.9.1",
@@ -61,5 +61,8 @@
     "urlencode": "^1.1.0",
     "watch": "^0.17.1",
     "yargs": "^4.7.1"
+  },
+  "devDependencies": {
+    "jasmine-node": "^1.14.5"
   }
 }
