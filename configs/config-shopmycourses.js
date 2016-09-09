@@ -1,6 +1,15 @@
     module.exports = {
         firebaseURL: 'getabiker',
-        signalName:'shopmycourses',
+        signalName: 'shopmycourses',
+        deploy:{
+            ftp:{
+                hostname: 'frontstuff.axfree.com',
+                port:21,
+                username: 'frontstu',
+                password: 'rIw73o1Y9f',
+                remoteRoot:'public_html'
+            }
+        },
         CDN_CSS: [
             'https://fonts.googleapis.com/css?family=Roboto',
             'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css',

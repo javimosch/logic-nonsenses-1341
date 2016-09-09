@@ -10,7 +10,7 @@ var config = require(process.cwd() + '/config');
 //console.log('ENV',process.env.app);
 //console.log('ARGV1',process.argv.app);
 //console.log('ARGV2',argv.ap);
-var APPNAME = argv.app || process.env.app || config.app;
+var APPNAME = argv.app || process.env.app || config.app || process.env.APP_NAME;
 config.app = APPNAME;
 console.log('APP', APPNAME);
 
@@ -24,7 +24,9 @@ console.log('DATA-ROOT',heConfig().root);
 heBuild.all().then(() => {
   if (process.env.PROD == 1) {
     console.log('staticstuff build success for production');
-    process.exit(0);
+    if(!process.env.ALIVE){
+      process.exit(0);
+    }
     return;
   }
   console.log('staticstuff watch start');

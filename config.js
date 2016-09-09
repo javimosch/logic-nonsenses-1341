@@ -5,7 +5,7 @@ ROOT_MODE = ROOT_MODE || PROD;
 var fs = require('fs');
 var configsFileNames = fs.readdirSync(process.cwd() + '/configs');
 var config = {
-	app: 'rich', //default app
+	app: process.env.APP_NAME || 'unkown', //default app
 };
 configsFileNames.forEach(path => {
 	var n = path.replace('.js', '').replace('config-', '');

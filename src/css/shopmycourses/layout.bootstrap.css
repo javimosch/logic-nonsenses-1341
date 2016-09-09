@@ -2,3 +2,10 @@
     margin-right:0px;
     margin-left:0px;
 }
+
+.alert{
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 0px;
+    margin: 20px;
+}

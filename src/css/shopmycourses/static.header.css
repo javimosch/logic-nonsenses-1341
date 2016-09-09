@@ -1,14 +1,12 @@
-
-
 .static header {
-    background: linear-gradient(709deg,#f2cc38, 5%,#0da991 32%,#445e97);
-    height: 500px;
+    background: linear-gradient(709deg, #f2cc38, 5%, #0da991 32%, #445e97);
+    padding: 0px 0px 50px 0px;
 }
 
-.static #logo .baseline{
-        color: black;
+.static #logo .baseline {
+    color: white;
     font-size: xx-large;
     font-family: 'Lobster', cursive;
-    
     padding: 20px;
+    margin-top: 50px;
 }

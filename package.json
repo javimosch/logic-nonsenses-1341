@@ -6,18 +6,18 @@
   "scripts": {
     "start": "node index.js",
     "test": "node lib/he.tests.js",
-    "deploy": "node ./lib/he.deploy.js --now",
     "install-safe": "npm i --save $1 --no-bin-links",
     "commit": "git add . | git commit --allow-empty-message --all -m",
     "push": "git push $1 master",
     "serve": "serve -p 8080",
-    "server": "heroku local web",
+    "server": "node server.js",
     "build": "PROD=1 node index.js",
     "dev": "node ./node_modules/concurrently/src/main.js --kill-others \"npm run start\" \"npm run server\"",
     "gitlog": "git log --graph --pretty=oneline --abbrev-commit",
     "clear": "node lib/he.task.clear.js",
     "local": "ROOT_MODE=1 ./dev.sh shopmycourses",
-    "release": "./build.sh shopmycourses"
+    "release": "./build.sh shopmycourses",
+    "deploy": "./ftp_deploy.sh shopmycourses"
   },
   "repository": {
     "type": "git",
