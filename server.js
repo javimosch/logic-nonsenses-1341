@@ -11,12 +11,17 @@ var fs = require('fs');
 
 var dest = 'dist';
 
-var appStaticResPaths = ['img', 'fonts', 'images', 'includes', 'files', 'templates', 'lib', 'styles'];
 
+var appStaticResPaths = ['img', 'fonts', 'images', 'includes', 'files', 'templates', 'lib', 'styles', 'css', 'js'];
 
-if (PROD) {
-	dest = 'dist-production';
+function setStaticPaths() {
+	appStaticResPaths.forEach(n => {
+		console.log('route rule (static) ->', '/' + n+ '/*')
+		app.use('/'+n, express.static(dest + '/' + n));
+	});
+}
 
+function setProductionRoutes() {
 	app.get('/', function(req, res, next) {
 		res.sendFile('/index.html', {
 			root: __dirname + '/' + dest
@@ -29,20 +34,23 @@ if (PROD) {
 			root: __dirname + '/' + dest
 		});
 	});
+}
 
-	http.listen(port, function() {
-		console.log('static-content - Production? ' + (PROD ? 'Oui!' : 'Non!'));
-		console.log('static-content - listening on port ' + port + '!');
-	});
+
+
+if (PROD) {
+	dest = 'dist-production';
+
+	setStaticPaths();
+	setProductionRoutes();
+	startServer();
 }
 else {
 
-	console.log('PROD?', PROD);
 
 
-	appStaticResPaths.forEach(n => {
-		app.use(dest + '/' + n, express.static(dest + '/' + n));
-	});
+
+	setStaticPaths();
 
 	//CORS
 	app.all('*', function(req, res, next) {
@@ -152,24 +160,17 @@ else {
 		});
 
 
-		app.get('/', function(req, res, next) {
-			res.sendFile('/index.html', {
-				root: __dirname + '/' + dest
-			});
-		});
-
-		//app root (if any)
-		app.get('/*', function(req, res, next) {
-			res.sendFile('/app/index.html', {
-				root: __dirname + '/' + dest
-			});
-		});
+		setProductionRoutes();
 	}
 
+	startServer();
 
+
+}
+
+function startServer() {
 	http.listen(port, function() {
-		console.log('static-content - Production? ' + (PROD ? 'Oui!' : 'Non!'));
-		console.log('static-content - listening on port ' + port + '!');
+		console.log('server - Production? ' + (PROD ? 'Oui!' : 'Non!'));
+		console.log('server - listening on port ' + port + '!');
 	});
-
 }

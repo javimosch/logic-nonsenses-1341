@@ -1,5 +1,6 @@
 //var express = require('express');
 var argv = require('yargs').argv;
+var exeCute = require('exe');
 var heBuild = require('./lib/he').build;
 var heWatch = require('./lib/he').watch;
 var heOptions = require('./lib/he').options;
@@ -26,6 +27,11 @@ heBuild.all().then(() => {
     console.log('staticstuff build success for production');
     if(!process.env.ALIVE){
       process.exit(0);
+    }else{
+      
+      //exeCute('./install-prod.sh '+APPNAME);
+      process.exit(0);
+      
     }
     return;
   }

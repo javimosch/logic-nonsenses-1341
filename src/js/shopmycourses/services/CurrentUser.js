@@ -29,7 +29,7 @@ angular.module('shopmycourse.services')
         init: function (next) {
           return DataStorage.get('current_user').then(function (currentUserFromStorage) {
             currentUser = currentUserFromStorage || {};
-            isLogged = (Object.keys(currentUser).length > 0);
+            //isLogged = (Object.keys(currentUser).length > 0);
             $rootScope.currentUser = currentUser;
             return DataStorage.get('token').then(function (tokenFromStorage) {
               next();
