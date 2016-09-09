@@ -1,6 +1,7 @@
 //var express = require('express');
 var argv = require('yargs').argv;
 var exeCute = require('exe');
+var fs = require('fs');
 var heBuild = require('./lib/he').build;
 var heWatch = require('./lib/he').watch;
 var heOptions = require('./lib/he').options;
@@ -15,6 +16,9 @@ var APPNAME = argv.app || process.env.app || config.app || process.env.APP_NAME;
 config.app = APPNAME;
 console.log('APP', APPNAME);
 
+fs.mkdirSync(process.cwd()+'/dist');
+fs.mkdirSync(process.cwd()+'/dist-production');
+fs.mkdirSync(process.cwd()+'/dist-production/'+APPNAME);
 
 
 heOptions.setApp(config.app, config.apps[config.app]);
