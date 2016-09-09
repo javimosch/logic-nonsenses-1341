@@ -7,6 +7,7 @@ before_script:
 test:
   type: test
   script:
+  - npm install
   - npm run test
 dev:
   type: deploy
