@@ -191,8 +191,8 @@ angular.module('shopmycourse.routes', [])
   })
 
   .state('start', {
-    url: ROOT+ '/start',
-    templateUrl: ROOT+  'templates/Start.html',
+    url: '/start',
+    templateUrl: 'templates/Start.html',
     controller: 'StartCtrl',
     resolve: {
       CurrentUserLoading: function(CurrentUser) {
@@ -202,17 +202,7 @@ angular.module('shopmycourse.routes', [])
     }
   })
   
-  .state('start2', {
-    url: ROOT+ '/start2',
-    templateUrl: ROOT+  'templates/Start2.html',
-    controller: 'StartCtrl',
-    resolve: {
-      CurrentUserLoading: function(CurrentUser) {
-        var promise = CurrentUser.init(function() {});
-        return promise;
-      }
-    }
-  })
+
 
   .state('signin', {
     url: ROOT+ '/profile/signin',
@@ -268,7 +258,7 @@ angular.module('shopmycourse.routes', [])
     }
   })
 
-  $urlRouterProvider.otherwise('/start')
+  $urlRouterProvider.otherwise('/signin')
 
 
 

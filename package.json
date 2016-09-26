@@ -1,5 +1,5 @@
 {
-  "name": "shopmycourses-web",
+  "name": "smc-web",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
@@ -15,9 +15,9 @@
     "dev": "node ./node_modules/concurrently/src/main.js --kill-others \"npm run start\" \"npm run server\"",
     "gitlog": "git log --graph --pretty=oneline --abbrev-commit",
     "clear": "node lib/he.task.clear.js",
-    "local": "ROOT_MODE=1 ./dev.sh shopmycourses",
-    "release": "./build.sh shopmycourses",
-    "deploy": "./ftp_deploy.sh shopmycourses",
+    "local": "ROOT_MODE=1 ./dev.sh smc",
+    "release": "./build.sh smc",
+    "deploy": "./ftp_deploy.sh smc",
     "heroku": "npm-run-parallel release server"
   },
   "repository": {
@@ -29,12 +29,12 @@
     "express",
     "gui"
   ],
-  "author": "Shopmycourses Team",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": ""
   },
-  "homepage": "www.shopmycourses.com",
+  "homepage": "",
   "dependencies": {
     "angularfire": "^1.2.0",
     "babel-core": "^6.9.1",
