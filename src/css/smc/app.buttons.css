@@ -1,19 +1,43 @@
-.button-facebook {
+.btn-facebook {
     background: #3b5998;
     color: #fff;
-    border-color:transparent;
-}
-.button-facebook:hover{
-    border-color:transparent;
+    border-color: transparent;
 }
 
-.button-google {
-    background: #d34836;
+.btn-facebook:hover {
     color: #fff;
-    border-color:transparent;
+    border-color: transparent;
 }
-.button-google:hover {
+
+.btn-google {
     background: #d34836;
     color: #fff;
-    border-color:transparent;
+    border-color: transparent;
+}
+
+.btn-google:hover {
+    background: #d34836;
+    color: #fff;
+    border-color: transparent;
+}
+
+.btn-white {
+    background-color: white;
+    color: #5D9FFE;
+    border: 0px;
+}
+
+.btn-white:hover {}
+
+.btn-white.btn-lg {
+  
+}
+
+
+.btn-block+.btn-block {
+    margin-top: 20px;
+}
+
+.white{
+    color:white;
 }

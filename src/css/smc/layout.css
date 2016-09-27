@@ -3,35 +3,36 @@ http://jsfiddle.net/Antifaith/hqyjt/
 */
 
 body {
+    height: 100%;
     margin: 0;
     padding: 0;
-    height: 100%;
+    position: relative;
 }
-
 html {
     height: 100%;
     margin: 0;
     padding: 0;
-}
-
-* html #wrapper {
-    height: 100%;
+    position: relative;
 }
 
 #wrapper {
+    height: 100%;
     min-height: 100%;
     position: relative;
 }
 
 #content {
-    padding-bottom: 300px;
+    padding-bottom: 108px;
     /* ATTENTION! padding-bottom should be equal to the footer height (this keeps the footer from overlapping the content) */
     background: mintcream;
 }
 
 #main-container {
-    background: mintcream;
-    min-height: 300px;
+    /*background: mintcream;*/
+    min-height: 530px;
+    padding-left:0px;
+    padding-right:0px;
+        padding-bottom: 50px;
 }
 
 #footer {

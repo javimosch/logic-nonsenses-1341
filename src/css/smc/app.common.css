@@ -9,3 +9,7 @@
     max-width: 300px;
     margin: 0 auto;
 }
+
+hr{
+        border-top: 0px;
+}
