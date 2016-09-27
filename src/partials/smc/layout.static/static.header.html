@@ -1,21 +1,36 @@
-<header>
-    <div class="row">
-        <div>
-            <div id="logo" align="center">
-                <div class="logo_inner">
-                    <a href="/"><img src="http://www.shopmycourses.fr/wp-content/uploads/2016/06/logo_smc_banner.png" alt="Shopmycourses" class="img-responsive"></a>
-                </div>
-                <div class="baseline">
-                    Et si vous gagniez de 3 à 15 euros en faisant vos courses ?
-                </div>
+<header class="static__header">
+    <nav class="static__header__nav navbar navbar-default">
+        <div class="container-fluid">
+            <div class="static__header__nav__header navbar-header">
+
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapsableNavbar">
+                    <span class="icon-bar header__icon-bar"></span>
+                    <span class="icon-bar header__icon-bar"></span>
+                    <span class="icon-bar header__icon-bar"></span> 
+                </button>
+
+                <a class="static__header__nav__header__brand navbar-brand" href="#">Shopmycourses</a>
+            </div>
+
+            <div class="collapse navbar-collapse header__navbar-collapse" id="collapsableNavbar">
+                <ul class="static__header__nav__ul nav navbar-nav">
+                    <li class="active static__header__nav__ul__li">
+                        <a class="static__header__nav__ul__li__a" href="#">Home</a>
+                    </li>
+                    <li class="static__header__nav__ul__li">
+                        <a class="static__header__nav__ul__li__a" href="#">How It works</a>
+                    </li>
+                </ul>
+                <ul class="static__header__nav__ul static__header__nav__ul-right nav navbar-nav navbar-right">
+                    <li class="static__header__nav__ul__li">
+                        <a class="static__header__nav__ul__li__a" href="/profile/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+                    </li>
+                    <li class="static__header__nav__ul__li">
+                        <a class="static__header__nav__ul__li__a" href="/profile/signin"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+                    </li>
+                </ul>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <div id="start">
-                <a href="/start" class="btn btn-success btn-lg center-block">START NOW</a>
-            </div>
-        </div>
-    </div>
+    </nav>
 </header>
+

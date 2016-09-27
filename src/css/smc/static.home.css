@@ -1,6 +1,28 @@
-#mobile-mockup{
+#mobile-mockup {
     margin: 0 auto;
     width: 211px;
     display: block;
-    margin-top: 50px;
+    padding-top: 50px;
+}
+
+.home__left_content {
+    padding-bottom: 50px;
+}
+
+.home__text-center {
+    text-align: center;
+    color: white;
+}
+
+.home__deliveryman-wrapper {
+    background: white;
+    height: 100%;
+    min-height: 720px;
+    position: relative;
+    right: -1px;
+}
+
+.home__deliveryman-wrapper__img {
+    position: absolute;
+    bottom: 0px;
 }

@@ -1,0 +1,19 @@
+.row {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+
+.modal {
+  overflow-y: hidden;
+}
+
+.modal-open .modal {
+  overflow-y: scroll;
+}
+
+.modal-open .modal-shiftfix,
+.modal-open .modal-shiftfix .navbar-fixed-top,
+.modal-open .modal-shiftfix .navbar-fixed-bottom {
+  overflow-y: scroll;
+}

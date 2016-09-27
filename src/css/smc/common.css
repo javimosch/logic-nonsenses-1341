@@ -1,3 +1,7 @@
 .link:hover{
     cursor:pointer;
 }
+
+.padding-none{
+    padding:0px!important;
+}
