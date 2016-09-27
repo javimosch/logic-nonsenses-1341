@@ -7,7 +7,7 @@ angular.module('shopmycourse.controllers')
  * @description Page d'inscription
 */
 
-.controller('ProfileSignUpCtrl', function ($scope, $rootScope, $ionicModal, $ionicLoading, $ionicPopup, $state, toastr, Authentication, Validation, CurrentUser) {
+.controller('ProfileSignUpCtrl', function ($scope, $rootScope, $state, toastr, Authentication, Validation, CurrentUser) {
 
   /**
    * Initialisation de la validation du formulaire
@@ -172,15 +172,20 @@ angular.module('shopmycourse.controllers')
     $scope.signUp();
   };
 
+
+
   /**
    * Affichage des popups CGU et CGU Lemonway
   */
+  /*
   $ionicModal.fromTemplateUrl('templates/CGU.html', {
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function (modal) {
     $scope.modal = modal;
   });
+  */
+
   $scope.openCGU = function () {
     $scope.modal.show();
   };
