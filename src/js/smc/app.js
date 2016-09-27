@@ -34,6 +34,8 @@ angular.module('shopmycourse', [
   $httpProvider.interceptors.push('HTTPInterceptor');
 })
 
+
+
 /*
 .config(function($ionicConfigProvider) {
   $ionicConfigProvider.backButton.previousTitleText(false).text(' ').icon('icon-smc-back');
@@ -56,6 +58,16 @@ angular.module('shopmycourse', [
       description : 'Main local database for ShopMyCourse mobile app'
     });
 }])
+
+
+.run(function(ConfigAPI, Configuration) {
+  ConfigAPI.fetch({}, function(config) {
+    config = JSON.parse(angular.toJson(config));
+    Configuration.init(config);
+  },function(err){
+    console.log(err)
+  });
+})
 
 .filter('replaceHttp', function () {
   return function (url) {

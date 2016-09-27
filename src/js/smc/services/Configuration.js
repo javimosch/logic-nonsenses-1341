@@ -5,14 +5,32 @@ angular.module('shopmycourse.services')
  * @function Service
  * @memberOf shopmycourse.services
  * @description Configuration de l'application
-*/
+ */
 
-.factory('Configuration', function () {
-  return {
-    //apiEndpoint: 'http://localhost:3000/',
-    //apiEndpoint: 'http://shopmycourses.herokuapp.com/',
-    apiEndpoint: 'https://ruby-shop-mc-clear-skies-1944-javoche.c9users.io/',
-    //apiEndpoint: 'http://shopmycourses-prod.herokuapp.com/',
+.service('Configuration', function($q, lodash) { //ConfigAPI
+  var isReady = false;
+  
+  var deferred = $q.defer()
+  
+  var config = {
+    promise: deferred.promise,
+    ready: function(){
+      return deferred.promise;
+    },
+    init: function(externalConfig) {
+      
+        if(externalConfig.API_ENDPOINT){
+          config.apiEndpoint = externalConfig.API_ENDPOINT;
+          console.log('apiEndpoint',config.apiEndpoint);
+        }
+        if(externalConfig.GOOGLE_API_KEY){
+          config.googleWebClientId = externalConfig.GOOGLE_API_KEY;
+          console.log('googleWebClientId',config.googleWebClientId);
+        }
+        deferred .resolve(true);
+    },
+    apiEndpoint: 'https://smc-dev-server.herokuapp.com/',
+    googleWebClientId: '626641878895-g9cr85f6k0pkmduabpmnago4imn486sh.apps.googleusercontent.com',
     errors: {
       SCHEDULE_ALREADY_EXIST: 'Vous avez déjà déposé une disponibilité',
       VALIDATION_CODE_ERROR: 'Votre code de validation est incorrect',
@@ -27,4 +45,8 @@ angular.module('shopmycourse.services')
       RATING_DONE: 'Votre avis a bien été pris en compte'
     }
   };
+
+
+  window._Configuration = config;
+  return config;
 });

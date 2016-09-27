@@ -5,17 +5,34 @@ angular.module('shopmycourse.services')
  * @function Service
  * @memberOf shopmycourse.services
  * @description Gestion des portefeuilles avec le serveur
-*/
+ */
 
-.service('CardAPI', function (API, Configuration) {
-
-    var resource = API(Configuration.apiEndpoint + 'wallets', { idUser: '@idUser' },
-    {
+.service('CardAPI', function(API, Configuration,lodash) {
+  var self = {};
+  Configuration.ready().then(function() {
+    var resource = API(Configuration.apiEndpoint + 'wallets', {
+      idUser: '@idUser'
+    }, {
       // Récupération d'un portefeuille correspondant à :idUser
-      'get': { method: 'GET', url: Configuration.apiEndpoint + 'wallets/:idUser', headers: { 'Authorization': 'Bearer' }, cache: false },
+      'get': {
+        method: 'GET',
+        url: Configuration.apiEndpoint + 'wallets/:idUser',
+        headers: {
+          'Authorization': 'Bearer'
+        },
+        cache: false
+      },
       // Mise à jour d'un portefeuille correspondant à :idUser
-      'update': { method: 'PUT', url: Configuration.apiEndpoint + 'wallets/:idUser', headers: { 'Authorization': 'Bearer' }, cache: false }
+      'update': {
+        method: 'PUT',
+        url: Configuration.apiEndpoint + 'wallets/:idUser',
+        headers: {
+          'Authorization': 'Bearer'
+        },
+        cache: false
+      }
     });
-
-    return resource;
+    lodash.extend(self, resource);
+  });
+  return self;
 });
