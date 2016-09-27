@@ -21,9 +21,9 @@
 
         <input type="text" name="lastname" class="form-control btn-block" ng-model="user.lastname" placeholder="Saisissez votre nom" ng-pattern="validation.name.pattern" required="required" autocomplete="off">
 
-        <input class="form-control btn-block" type="email" placeholder="Email" ng-model="user.email" ng-pattern="validation.email.pattern" required="required" autocomplete="off">
+        <input class="form-control btn-block" type="email" name="email" placeholder="Email" ng-model="user.email" ng-pattern="validation.email.pattern" required="required" autocomplete="off">
 
-        <input class="form-control btn-block" type="password" placeholder="Password" ng-model="user.password" placeholder="Mot de passe" ng-pattern="validation.password.pattern" required="required" autocomplete="off">
+        <input class="form-control btn-block" type="password" name="password" placeholder="Password" ng-model="user.password" placeholder="Mot de passe" ng-pattern="validation.password.pattern" required="required" autocomplete="off">
 
         <input type="tel" name="phone" class="form-control btn-block" ng-model="user.phone" placeholder="Saisissez votre n° de portable" ng-pattern="validation.phone.pattern" required="required" autocomplete="off">
       </div>
@@ -32,25 +32,33 @@
       <div class="buttons-block">
         <p>
           <p class="cgu white"><input type="checkbox" name="cgu" ng-model="user.cgu" required="required" selected="false">&nbsp;Vous acceptez les <a ng-click="openCGU()" class="link" style="text-decoration: underline;">conditions générales d'utilisation</a> de Shopmycourses</p>
-          <p class="cgu white"><input type="checkbox" name="lemonway" ng-model="user.lemonway" required="required" selected="false">&nbsp;Vous acceptez les <a ng-click="openLemonWayCGU()" class="link" style="text-decoration: underline;">conditions générales d'utilisation</a> de Lemon
-            Way, notre prestataire de service de paiement.</p>
+          <p class="cgu white"><input type="checkbox" name="lemonway" ng-model="user.lemonway" required="required" selected="false">&nbsp;Vous acceptez les <a ng-click="openLemonWayCGU()" class="link" style="text-decoration: underline;">conditions générales d'utilisation</a>            de Lemon Way, notre prestataire de service de paiement.</p>
         </p>
       </div>
 
-      <div class="error-message" ng-show="signin.email.$error.pattern">
-        <span><i class="icon ion-close-circled"></i> {{validation.email.message}}</span>
-      </div>
-      <div class="error-message" ng-show="signin.password.$error.pattern">
-        <span><i class="icon ion-close-circled"></i> {{validation.password.message}}</span>
+
+      <div class="buttons-block">
+        <div class="error-message" ng-show="signup.email.$error.pattern">
+          <span><i class="icon ion-close-circled"></i> {{validation.email.message}}</span>
+        </div>
+        <div class="error-message" ng-show="signup.password.$error.pattern">
+          <span><i class="icon ion-close-circled"></i> {{validation.password.message}}</span>
+        </div>
+        <div class="error-message" ng-show="signup.phone.$error.pattern">
+          <span><i class="icon ion-close-circled"></i> {{validation.phone.message}}</span>
+        </div>
       </div>
 
 
     </form>
     <hr>
     <div class="buttons-block">
-      <a ng-click="signUpWithEmail()" class="btn btn-white btn-block btn-lg" ng-disabled="signin.$invalid">Inscription</a>
-      <a ui-sref="start" class="btn btn-white btn-block btn-lg" >Go Back</a>
+      <a ng-click="!signup.$invalid && signUpWithEmail()" class="btn btn-white btn-block btn-lg" ng-disabled="signup.$invalid">Inscription</a>
+      <a ui-sref="start" class="btn btn-white btn-block btn-lg">Go Back</a>
     </div>
 
   </div>
 </div>
+
+
+

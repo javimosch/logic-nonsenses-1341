@@ -7,7 +7,18 @@ angular.module('shopmycourse.controllers')
  * @description Page de connexion
  */
 
-.controller('ProfileSignInCtrl', function($scope, $modal, $rootScope, $state, toastr, Authentication, Validation, CurrentUser, UserAPI) {
+.controller('ProfileSignInCtrl', function($scope, $modal, $rootScope, $state, toastr, Authentication, Validation, CurrentUser, UserAPI, LoadingModal, $log, CustomModal) {
+  var self = $scope;
+  window.s = $scope;
+
+  var LOADING_TEXT = 'Nous vérifions vos identifiants...';
+  var EXTERNAL_POPUP_URL = '/templates/Profile/ExternalServicesPopup.html';
+  var MESSAGE_LOADING_SENDING_PASSWORD = 'Envoi du mot de passe...';
+  var TEXT_PASWORD_RECOVERING_TITLE = 'Mot de passe oublié';
+  var TEXT_PASWORD_RECOVERING_WARN_INVALID_EMAIL = 'Veuillez rentrer une adresse email valide';
+  var TEXT_PASWORD_RECOVERING_WARN_EMAIL_NOT_REGISTERED = 'Cettre adresse email n\'est pas enregistrée';
+  var TEXT_PASWORD_RECOVERING_INFO_PASSWORD_SENDED = 'Votre mot de passe a été envoyé par email';
+  var LEMONWAY_CGU_URL = 'https://www.lemonway.fr/legal/conditions-generales-d-utilisation';
 
   /**
    * Initialisation de la validation du formulaire
@@ -24,6 +35,7 @@ angular.module('shopmycourse.controllers')
       password: ''
     };
   };
+  $scope.init();
 
   /**
    * @name $scope.signIn
@@ -31,17 +43,25 @@ angular.module('shopmycourse.controllers')
    */
   $scope.signIn = function() {
 
-    //$ionicLoading.show({
-    //      template: 'Nous vérifions vos identifiants...'
-    //});
+    LoadingModal.show(LOADING_TEXT);
+
+    $log.debug('Signin: Authentication.login', $scope.user)
 
     Authentication.login($scope.user, function(correct, errorMessage) {
 
-      //$ionicLoading.hide();
+      $log.debug('Signin: Authentication.login.callback')
+
+      LoadingModal.hide();
 
       if (correct) {
-        $scope.init();
+
+        $log.debug('Signin: route to tabs.home')
+
         $state.go('tabs.home');
+        if ($scope.user.email) {
+          toastr.success('Welcome ' + $scope.user.email + '!', 'Authentification');
+        }
+        $scope.init();
       }
       else {
         toastr.warning(errorMessage, 'Authentification');
@@ -50,112 +70,19 @@ angular.module('shopmycourse.controllers')
     });
   };
 
-  $scope.init();
 
+  var socialSignInModal = CustomModal(EXTERNAL_POPUP_URL, {
+    isSignin: $scope.isSignin || false,
+    ok: function() {
+      $log.debug('SignIn: $modal.scope.ok');
 
-  function catchFacebookSigInErrors(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // The email of the user's account used.
-    var email = error.email;
-    // The firebase.auth.AuthCredential type that was used.
-    var credential = error.credential;
-
-    console.log(errorCode, errorMessage, email, credential);
-  }
-
-  var self = $scope;
-
-
-  $scope.handleSignInFacebookButton = function() {
-    $modal({
-      scope: $scope,
-      templateUrl: '/templates/Profile/ExternalServicesPopup.html',
-      show: true,
-      controller: function($scope) {
-        $scope.ok = function() {
-          self.signIn.signInWithFacebook();
-          $scope.$hide();
-        }
-        $scope.close = function() {
-          $scope.$hide();
-        }
-      }
-    });
-  }
-
-  /**
-   * @name $scope.signInWithFacebook
-   * @description Connexion avec Facebook
-   */
-  $scope.signInWithFacebook = function() {
-    var provider = new window.firebase.auth.FacebookAuthProvider();
-    window.firebase.auth().signInWithPopup(provider).then(function(result) {
-      var token = result.credential.accessToken;
-      var user = result.user;
-
-      console.info('logged', user);
-
-      $scope.user.auth_token = token;
-      $scope.user.auth_method = 'facebook';
-      //$scope.signIn();
-      toastr.error('Logged', 'Connexion');
-
-      // ...
-    }).catch(function(error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      var email = error.email;
-      var credential = error.credential;
-      console.warn('error', errorCode, errorMessage, email, credential);
-      toastr.error('Une erreur est survenue lors de la connexion via Facebook', 'Connexion');
-    });
-
-
-    return;
-  };
-
-
-
-  /**
-   * @name $scope.signInWithGoogle
-   * @description Connexion avec Google
-   */
-  $scope.signInWithGoogle = function() {
-    $ionicPopup.show({
-      templateUrl: 'templates/Profile/ExternalServicesPopup.html',
-      title: 'Connexion avec Google',
-      scope: $scope,
-      buttons: [{
-        text: 'Retour',
-        onTap: function(e) {
-          return (true);
-        }
-      }, {
-        text: 'OK',
-        type: 'button-positive',
-        onTap: function(e) {
-          window.plugins.googleplus.disconnect();
-          window.plugins.googleplus.login({
-              'webClientId': '979481548722-mj63ev1utfe9v21l5pdiv4j0t1v7jhl2.apps.googleusercontent.com',
-              'offline': true
-            },
-            function(data) {
-              $scope.user.id_token = data.idToken;
-              $scope.user.auth_method = 'google';
-              $scope.signIn();
-            },
-            function(error) {
-              toastr.error('Une erreur est survenue lors de la connexion via Google', 'Connexion');
-              console.log('Google login errors : ', error);
-            }
-          );
-          return (true);
-        }
-      }]
-    });
-  };
+      this.resolveModal(true);
+    },
+    close: function() {
+      $log.debug('SignIn: $modal.scope.close');
+      this.resolveModal(false);
+    }
+  });
 
   /**
    * @name $scope.signInWithEmail
@@ -167,27 +94,117 @@ angular.module('shopmycourse.controllers')
   };
 
   /**
+   * @name $scope.signInWithFacebook
+   * @description Connexion avec Facebook (Firebase)
+   */
+  $scope.signInWithFacebook = function(validate) {
+
+    if (!validate) {
+      return socialSignInModal.show({
+        title: 'Connexion avec Facebook'
+      }).then(function(result) {
+        $log.debug('SignIn: $modal.resolve ' + result);
+        if (!result) return;
+        $scope.signInWithFacebook(true);
+      });
+    }
+
+    if (window.firebase.auth().currentUser) return window.firebase.auth().signOut().then(function() {
+      $scope.signInWithFacebook(true);
+    });
+
+    $log.debug('SignIn: social auth facebook on-the-way');
+    var provider = new window.firebase.auth.FacebookAuthProvider();
+    window.firebase.auth().signInWithPopup(provider).then(function(result) {
+      var token = result.credential.accessToken;
+      var user = result.user;
+      $log.debug('SignIn: social auth facebook success');
+      $scope.user.auth_token = token;
+      $scope.user.auth_method = 'facebook';
+      $scope.signIn();
+    }).catch(catchSocialSignInError('Facebook'));
+  };
+
+  function catchSocialSignInError(providerName) {
+    return function(error) {
+      $log.warn('SignIn: catchSocialSignInError');
+      var errorCode = error.code; // Handle Errors here.
+      if (errorCode == 'auth/account-exists-with-different-credential') {
+
+        window.firebase.auth().fetchProvidersForEmail(error.email).then(function(providers) {
+          
+          if(providers[0].toString().indexOf('google')!==-1){
+            //return $scope.signInWithGoogle(true);
+          }
+          
+          toastr.info(error.email + ' is registered with a different provider (' + providers[0] + ').', 'Connexion');
+        });
+
+        return;
+      }
+      var errorMessage = error.message;
+      var email = error.email; // The email of the user's account used.
+      var credential = error.credential; // The firebase.auth.AuthCredential type that was used.
+      $log.error(errorCode, errorMessage, email, credential);
+      toastr.error('Une erreur est survenue lors de la connexion via ' + providerName, 'Connexion');
+    }
+  }
+
+
+
+  /**
+   * @name $scope.signInWithGoogle
+   * @description Connexion avec Google (Firebase)
+   */
+  $scope.signInWithGoogle = function(validate) {
+
+
+    if (!validate) {
+      return socialSignInModal.show({
+        title: 'Connexion avec Google'
+      }).then(function(result) {
+        $log.debug('SignIn: $modal.resolve ' + result);
+        if (!result) return;
+        $scope.signInWithGoogle(true);
+      });
+    }
+
+    if (window.firebase.auth().currentUser) return window.firebase.auth().signOut().then(function() {
+      $scope.signInWithGoogle(true);
+    });
+
+
+    var provider = new window.firebase.auth.GoogleAuthProvider();
+    window.firebase.auth().signInWithPopup(provider).then(function(result) {
+      $log.info('SignIn: social auth google success idToken?', result.credential.idToken != undefined);
+      $scope.user.id_token = result.credential.idToken || 'invalid';
+      $scope.user.auth_method = 'google';
+      $scope.signIn();
+    }).catch(catchSocialSignInError('Google'));
+  };
+
+
+
+  /**
    * @name $scope.forgotPassword
    * @description Ouverture de la popup pour mot de passe oublié
    */
   $scope.forgotPassword = function() {
     if (!$scope.user.email || $scope.user.email.length <= 0) {
-      toastr.warning('Veuillez rentrer une adresse email valide', 'Mot de passe oublié');
+      toastr.warning(TEXT_PASWORD_RECOVERING_WARN_INVALID_EMAIL, TEXT_PASWORD_RECOVERING_TITLE);
       return;
     }
-    $ionicLoading.show({
-      template: 'Envoi du mot de passe...'
-    });
+    LoadingModal.show(MESSAGE_LOADING_SENDING_PASSWORD);
     UserAPI.forgotPassword({
       user: {
         email: $scope.user.email
       }
     }, function(data) {
-      toastr.info('Votre mot de passe a été envoyé par email', 'Mot de passe oublié');
-      $ionicLoading.hide();
+      toastr.info(TEXT_PASWORD_RECOVERING_INFO_PASSWORD_SENDED, TEXT_PASWORD_RECOVERING_TITLE);
+      LoadingModal.hide();
     }, function(err) {
-      toastr.warning('Cettre adresse email n\'est pas enregistrée', 'Mot de passe oublié');
-      $ionicLoading.hide();
+      toastr.warning(TEXT_PASWORD_RECOVERING_WARN_EMAIL_NOT_REGISTERED, TEXT_PASWORD_RECOVERING_TITLE);
+      LoadingModal.hide();
     });
   };
 
@@ -209,11 +226,9 @@ angular.module('shopmycourse.controllers')
     CGUModal.$promise.then(CGUModal.show);
   };
   $scope.openLemonWayCGU = function() {
-    window.open('https://www.lemonway.fr/legal/conditions-generales-d-utilisation', '_system', 'location=yes');
+    window.open(LEMONWAY_CGU_URL, '_system', 'location=yes');
     return false;
   };
-  $scope.closeCGU = function() {
-    $scope.modal.hide();
-  };
+
 
 });

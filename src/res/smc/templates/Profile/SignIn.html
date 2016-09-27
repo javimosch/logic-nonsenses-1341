@@ -6,30 +6,44 @@
       Connexion avec
     </p>
     <div class="buttons-block">
-      <a ui-sref="signup" class="btn btn-facebook btn-block btn-lg ">Facebook</a>
-      <a ui-sref="signin" class="btn btn-google btn-block btn-lg ">Google</a>
+      <a ng-click="signInWithFacebook(false)" class="link btn btn-facebook btn-block btn-lg ">Facebook</a>
+      <a ng-click="signInWithGoogle(false)" class="btn btn-google btn-block btn-lg ">Google</a>
     </div>
 
     <p class="signin__text-center">
       Ou utilisez votre email
     </p>
 
-    <div class="buttons-block">
-      <input class="form-control btn-block" type="email" placeholder="Email" ng-model="user.email" ng-pattern="validation.email.pattern" required="required" autocomplete="off">
-      <div class="error-message" ng-show="signin.email.$error.pattern">
-        <span><i class="icon ion-close-circled"></i> {{validation.email.message}}</span>
+
+    <form class="list" name="signin">
+      <div class="buttons-block">
+        <input class="form-control btn-block" type="email" name="email" placeholder="Email" ng-model="user.email" ng-pattern="validation.email.pattern" required="required" autocomplete="off">
+        <input class="form-control btn-block" type="password" name="password" placeholder="Password" ng-model="user.password" placeholder="Mot de passe" ng-pattern="validation.password.pattern" required="required" autocomplete="off">
       </div>
-      <input class="form-control btn-block" type="password" placeholder="Password" ng-model="user.password" placeholder="Mot de passe" ng-pattern="validation.password.pattern" required="required" autocomplete="off">
-      <div class="error-message" ng-show="signin.password.$error.pattern">
-        <span><i class="icon ion-close-circled"></i> {{validation.password.message}}</span>
+
+
+      <div class="buttons-block">
+        <hr>
+        <div class="error-message" ng-show="signin.email.$error.pattern">
+          <span><i class="icon ion-close-circled"></i> {{validation.email.message}}</span>
+        </div>
+        <div class="error-message" ng-show="signin.password.$error.pattern">
+          <span><i class="icon ion-close-circled"></i> {{validation.password.message}}</span>
+        </div>
       </div>
-    </div>
+
+    </form>
+
+
+
+
+
     <hr>
     <div class="buttons-block">
       <a ng-click="signInWithEmail()" class="btn btn-white btn-block btn-lg" ng-disabled="signin.$invalid">Connexion</a>
       <a ng-click="forgotPassword()" class="link white forgot-pwd">Mot de passe oublié ?</a>
       <hr>
-      <a ui-sref="start" class="btn btn-white btn-block btn-lg" >Go Back</a>
+      <a ui-sref="start" class="btn btn-white btn-block btn-lg">Go Back</a>
     </div>
 
   </div>

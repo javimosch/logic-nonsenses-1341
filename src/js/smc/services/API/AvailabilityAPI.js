@@ -7,8 +7,12 @@ angular.module('shopmycourse.services')
  * @description Gestion des disponibilités avec le serveur
  */
 
-.service('AvailabilityAPI', function(API, Configuration,lodash) {
+.service('AvailabilityAPI', function(API, Configuration, lodash, $q) {
   var self = {};
+
+  var deferred = $q.defer()
+  self.promise = deferred.promise;
+
   Configuration.ready().then(function() {
     var resource = API(Configuration.apiEndpoint + 'availabilities', {
       idAvailability: '@idAvailability'
@@ -52,6 +56,7 @@ angular.module('shopmycourse.services')
       }
     });
     lodash.extend(self, resource);
+    deferred.resolve(true);
   });
   return self;
 });

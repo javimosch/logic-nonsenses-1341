@@ -3,6 +3,7 @@
 angular.module('shopmycourse', [
   //'jrCrop',
   'ui.router',
+  'ui.bootstrap',
   'toastr',
   'ngLodash',
   'mgcrea.ngStrap',
@@ -49,13 +50,21 @@ angular.module('shopmycourse', [
   });
 })
 
+
+
+.run(function(DeliveryRequestAPI, Browser, $localForage) {
+  window.DeliveryRequestAPI = DeliveryRequestAPI;
+  window.Browser = Browser
+  window.$localForage = $localForage
+})
+
 .config(['$localForageProvider', function($localForageProvider){
     $localForageProvider.config({
       driver      : 'localStorageWrapper',
       name        : 'ShopMyCourse',
       version     : 1.0,
       storeName   : 'main',
-      description : 'Main local database for ShopMyCourse mobile app'
+      description : 'Main local database for ShopMyCourse web app'
     });
 }])
 

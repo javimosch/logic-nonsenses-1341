@@ -39,7 +39,10 @@ angular.module('shopmycourse.routes', [])
         templateUrl: ROOT + 'templates/Home.html',
         controller: 'HomeCtrl',
         resolve: {
-          apiEndpoint: resolveConfiguration
+          apiEndpoint: resolveConfiguration,
+          availabilityApi: function(AvailabilityAPI) {
+            return AvailabilityAPI.promise;
+          }
         }
       },
       resolve: {
@@ -55,7 +58,7 @@ angular.module('shopmycourse.routes', [])
       'deliveries-tab': {
         templateUrl: ROOT + 'templates/Deliveries/List.html',
         controller: 'DeliveriesListCtrl',
-        resolve:{
+        resolve: {
           apiEndpoint: resolveConfiguration
         }
       }
@@ -221,11 +224,22 @@ angular.module('shopmycourse.routes', [])
 
 
 
+
+  .state('root', {
+    url: ROOT + '/root',
+    resolve: {
+      root: function() {
+        window.location.href = window.location.origin;
+      }
+    }
+  })
+
+
   .state('signin', {
     url: ROOT + '/profile/signin',
     templateUrl: ROOT + 'templates/Profile/SignIn.html',
     controller: 'ProfileSignInCtrl',
-    resolve:{
+    resolve: {
       apiEndpoint: resolveConfiguration
     }
   })
@@ -234,7 +248,7 @@ angular.module('shopmycourse.routes', [])
     url: ROOT + '/profile/signup',
     templateUrl: ROOT + 'templates/Profile/SignUp.html',
     controller: 'ProfileSignUpCtrl',
-    resolve:{
+    resolve: {
       apiEndpoint: resolveConfiguration
     }
   })

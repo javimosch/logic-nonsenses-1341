@@ -27,7 +27,7 @@ angular.module('shopmycourse.services')
           config.googleWebClientId = externalConfig.GOOGLE_API_KEY;
           console.log('googleWebClientId',config.googleWebClientId);
         }
-        deferred .resolve(true);
+        deferred.resolve(true);
     },
     apiEndpoint: 'https://smc-dev-server.herokuapp.com/',
     googleWebClientId: '626641878895-g9cr85f6k0pkmduabpmnago4imn486sh.apps.googleusercontent.com',

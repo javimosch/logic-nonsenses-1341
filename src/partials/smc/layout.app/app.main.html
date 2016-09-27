@@ -1,8 +1,8 @@
 <div class="modal-shiftfix">
-    <div id="wrapper">
+    <div id="wrapper" class="app">
         <div id="content">
             {{> app.header}}
-            <div class="background-malibu" id="main-container" >
+            <div class="background-malibu" id="main-container">
                 <ui-view></ui-view>
             </div>
         </div>
@@ -10,12 +10,13 @@
             {{> app.footer}}
         </div>
     </div>
+    {{> app.templates}}
     {{> app.scripts}}
-    
-    <script type="text/javascript">
-        //Fix for content height
-        $('#main-container').css("min-height",$('body').height()-108);
-        
-    </script>
-    
+
 </div>
+
+
+<script type="text/javascript">
+    //Fix for content height
+    $('#main-container').css("min-height", $('body').height() - 108);
+</script>
