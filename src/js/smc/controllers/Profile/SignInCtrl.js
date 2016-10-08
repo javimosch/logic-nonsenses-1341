@@ -71,18 +71,7 @@ angular.module('shopmycourse.controllers')
   };
 
 
-  var socialSignInModal = CustomModal(EXTERNAL_POPUP_URL, {
-    isSignin: $scope.isSignin || false,
-    ok: function() {
-      $log.debug('SignIn: $modal.scope.ok');
-
-      this.resolveModal(true);
-    },
-    close: function() {
-      $log.debug('SignIn: $modal.scope.close');
-      this.resolveModal(false);
-    }
-  });
+  
 
   /**
    * @name $scope.signInWithEmail
@@ -208,8 +197,41 @@ angular.module('shopmycourse.controllers')
     });
   };
 
+ 
+
+
+  $scope.openCGU = function() {
+    console.log('openCGU');
+    //$scope.modal.show();
+    CGUModal.$promise.then(CGUModal.show);
+  };
+  $scope.openLemonWayCGU = function() {
+    console.log('openLemonWayCGU');
+    window.open(LEMONWAY_CGU_URL, '_system', 'location=yes');
+    return false;
+  };
+  
   /**
-   * Affichage des popups CGU et CGU Lemonway
+   * Social sign in popup
+   **/
+  var socialSignInModal = CustomModal(EXTERNAL_POPUP_URL, {
+    isSignin: $scope.isSignin || false,
+    openCGU:$scope.openCGU,
+    openLemonWayCGU:$scope.openLemonWayCGU,
+    ok: function() {
+      $log.debug('SignIn: $modal.scope.ok');
+
+      this.resolveModal(true);
+    },
+    close: function() {
+      $log.debug('SignIn: $modal.scope.close');
+      this.resolveModal(false);
+    }
+  });
+  
+  
+   /**
+   * Social sign in popup (CGU)
    **/
   var CGUModal = $modal({
     scope: $scope,
@@ -220,15 +242,6 @@ angular.module('shopmycourse.controllers')
     }
   });
 
-
-  $scope.openCGU = function() {
-    //$scope.modal.show();
-    CGUModal.$promise.then(CGUModal.show);
-  };
-  $scope.openLemonWayCGU = function() {
-    window.open(LEMONWAY_CGU_URL, '_system', 'location=yes');
-    return false;
-  };
-
+  $log.debug('SignInCtrl');
 
 });

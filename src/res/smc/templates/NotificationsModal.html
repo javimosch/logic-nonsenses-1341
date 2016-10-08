@@ -1,16 +1,18 @@
-<ion-modal-view id="notifications" ng-controller="NotificationsCtrl">
-  <ion-header-bar class="bar-positive">
-    <span class="title center">Notifications</span>
-    <button class="button button-icon button-clear icon ion-close-round" ng-click="closeNotificationsModal()"></button>
-  </ion-header-bar>
-  <ion-content overflow-scroll="true" padding="false" class="has-header notification">
-      <ion-list>
+<div class="modal" id="notifications" tabindex="-1" role="dialog" ng-controller="NotificationsCtrl">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="$hide()">&times;</button>
+        <h4 class="modal-title">Notifications</h4>
+      </div>
+      <div class="modal-body">
+
+
         <div ng-repeat="notification in notifications">
           <ion-item class="item-icon-left main title">
-              <div class="">
-                <i class="icon ion-android-notifications-none"></i>
-                {{notification.content}}
-              </div>
+            <div class="">
+              <i class="icon ion-android-notifications-none"></i> {{notification.content}}
+            </div>
           </ion-item>
 
           <!-- delivery_request -->
@@ -108,8 +110,7 @@
             <div class="shop">{{notification.meta.shop.name}}</div>
             <div class="schedule"><i class="ion-ios-calendar-outline"></i> {{notification.meta.schedule.schedule}}</div>
             <div class="address"><i class="ion-ios-location"></i> {{notification.meta.address.address}}, {{notification.meta.address.city}}</div>
-            <div class="recipient"><i class="ion-ios-person"></i> {{notification.meta.buyer.firstname || notification.meta.deliveryman.firstname}}
-            {{notification.meta.buyer.lastname || notification.meta.deliveryman.lastname}}</div>
+            <div class="recipient"><i class="ion-ios-person"></i> {{notification.meta.buyer.firstname || notification.meta.deliveryman.firstname}} {{notification.meta.buyer.lastname || notification.meta.deliveryman.lastname}}</div>
             <div class="response row">
               <div class="col">
                 {{notification.content}}
@@ -124,8 +125,7 @@
             <div class="shop">{{notification.meta.shop.name}}</div>
             <div class="schedule"><i class="ion-ios-calendar-outline"></i> {{notification.meta.schedule.schedule}}</div>
             <div class="address"><i class="ion-ios-location"></i> {{notification.meta.address.address}}, {{notification.meta.address.city}}</div>
-            <div class="recipient"><i class="ion-ios-person"></i> {{notification.meta.buyer.firstname || notification.meta.deliveryman.firstname}}
-            {{notification.meta.buyer.lastname || notification.meta.deliveryman.lastname}}</div>
+            <div class="recipient"><i class="ion-ios-person"></i> {{notification.meta.buyer.firstname || notification.meta.deliveryman.firstname}} {{notification.meta.buyer.lastname || notification.meta.deliveryman.lastname}}</div>
             <div class="response row">
               <div class="col">
                 {{notification.content}}
@@ -137,6 +137,14 @@
         <ion-item class="secondary" ng-if="notifications.length == 0">
           Vous n'avez aucune notification
         </ion-item>
-      </ion-list>
-  </ion-content>
-</ion-modal-view>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="$hide()">Retour</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

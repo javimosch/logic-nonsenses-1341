@@ -7,7 +7,7 @@ angular.module('shopmycourse.services')
  * @description Loading modal for XHR operations.
  */
 
-.factory('LoadingModal', function($window, $uibModal, $log) {
+.factory('LoadingModal', function($window, $uibModal, $log, DomRefresher) {
 
     var instance = null;
 
@@ -18,7 +18,8 @@ angular.module('shopmycourse.services')
             keyboard: false,
             backdrop: 'static',
             windowTopClass: 'static-backdrop',
-            templateUrl: 'static-backdrop.html', /*app.templates.html*/
+            templateUrl: 'static-backdrop.html',
+            /*app.templates.html*/
             controller: function($scope) {
                 $scope.message = text;
             },
@@ -28,10 +29,19 @@ angular.module('shopmycourse.services')
 
     function hide() {
         $log.debug('LoadingModal: Hide');
-        if (instance) instance.dismiss();
+        DomRefresher(function(){
+            if (instance) instance.dismiss();
+        },200);
     }
-    return {
+
+
+    window.LoadingModal = {
         show: show,
-        hide: hide
+        hide: hide,
+        getInstance: function() {
+            return instance;
+        }
     };
+
+    return window.LoadingModal;
 });

@@ -1,5 +1,6 @@
-
-require('dotenv').config({silent:true});
+require('dotenv').config({
+	silent: true
+});
 
 var express = require('express');
 var path = require("path");
@@ -9,6 +10,7 @@ var PROD = process.env.PROD && process.env.PROD.toString() == '1' || false;
 var port = process.env.PORT || 3000;
 var config = require('./config.js');
 var btoa = require('btoa');
+require('dotenv').config();
 var fs = require('fs');
 
 var dest = 'dist';
@@ -18,8 +20,8 @@ var appStaticResPaths = ['img', 'fonts', 'images', 'includes', 'files', 'templat
 
 function setStaticPaths() {
 	appStaticResPaths.forEach(n => {
-		console.log('route rule (static) ->', '/' + n+ '/*')
-		app.use('/'+n, express.static(dest + '/' + n));
+		console.log('route rule (static) ->', '/' + n + '/*')
+		app.use('/' + n, express.static(dest + '/' + n));
 	});
 }
 
@@ -37,6 +39,7 @@ function setProductionRoutes() {
 		});
 	});
 }
+
 
 
 

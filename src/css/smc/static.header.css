@@ -1,11 +1,13 @@
 .static__header {
     height: 108px;
     padding: 0px 0px 50px 0px;
+    margin-bottom: 30px;
 }
 
 .static__header__nav {
     height: 108px;
-    background-color: #EB5151;
+    /*background-color: #EB5151;*/
+    background-color: white;
     border: 0px;
     border-radius: 0px;
 }
@@ -18,22 +20,23 @@
     margin-top: 24px;
     font-size: 30px;
     color: white!important;
+        top: -26px;
+    position: relative;
 }
 
 .static__header__nav__ul {
     /*height: 108px;*/
 }
 
-.static__header__nav__ul-right{
-    position:relative;
-    top:-3px;
-}
+.static__header__nav__ul-right {}
 
 .static__header__nav__ul__li {
     /*height: 108px;*/
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 992px) {
+    /* BREAK */
+    /*same as nav collapse breakpoint*/
     .static__header__nav__ul {
         height: 108px;
     }
@@ -44,11 +47,13 @@
 
 .static__header__nav__ul__li__a {
     margin-top: 27px;
-    font-size: 20px;
+    font-size: 18px;
     min-height: 53px;
-    color: whitesmoke!important;
-    min-width: 120px;
+    color: #EB5151!important;
+    min-width: 110px;
     text-align: center;
+    font-weight: 800;
+    padding: 10px 4px!important;
 }
 
 .static__header__nav__ul__li__a:hover,
@@ -56,7 +61,8 @@
 li.active>.static__header__nav__ul__li__a,
 .static__header__nav__ul__li__a.active {
     background-color: transparent!important;
-    color:white!important;
+    /*color:black!important;*/
+    text-decoration: underline!important;
 }
 
 .static #logo .baseline {

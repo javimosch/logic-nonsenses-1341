@@ -1,5 +1,15 @@
+<div class="row">
+  <div class="title-bar">
+    <h2 class="title-bar__title">Inscription</h2>
+  </div>
+</div>
+
 <div class="row signup">
-  <div class="col-sm-12">
+  <div class="col-md-3 visible-md-block visible-lg-block relative">
+    <img class="layout__icon-top-left" src="/img/icon_hand_in_sac_rotated.png" alt="Icon Commande Envoyee">
+  </div>
+
+  <div class="col-sm-12 col-md-6">
     <img src="/img/logo_circle_malibu.jpg" class="start__logo img-responsive">
 
     <p class="signin__text-center">
@@ -30,22 +40,27 @@
 
 
       <div class="buttons-block">
-        <p>
-          <p class="cgu white"><input type="checkbox" name="cgu" ng-model="user.cgu" required="required" selected="false">&nbsp;Vous acceptez les <a ng-click="openCGU()" class="link" style="text-decoration: underline;">conditions générales d'utilisation</a> de Shopmycourses</p>
-          <p class="cgu white"><input type="checkbox" name="lemonway" ng-model="user.lemonway" required="required" selected="false">&nbsp;Vous acceptez les <a ng-click="openLemonWayCGU()" class="link" style="text-decoration: underline;">conditions générales d'utilisation</a>            de Lemon Way, notre prestataire de service de paiement.</p>
+        <hr>
+        <p class="cgu white">
+          <i ng-class="user.cgu? 'fa fa-checkbox fa-check-square-o fa-2x' : 'fa fa-checkbox fa-square-o fa-2x'" ng-click="user.cgu = !user.cgu"></i> Vous acceptez les <a ng-click="openCGU()" class="link" style="text-decoration: underline;">conditions générales d'utilisation</a>          de Shopmycourses
         </p>
+
+        <p class="cgu white">
+          <i ng-class="user.lemonway? 'fa fa-checkbox fa-check-square-o fa-2x' : 'fa fa-checkbox fa-square-o fa-2x'" ng-click="user.lemonway = !user.lemonway"></i> Vous acceptez les <a ng-click="openLemonWayCGU()" class="link" style="text-decoration: underline;">conditions générales d'utilisation</a>          de Lemon Way, notre prestataire de service de paiement.
+        </p>
+
       </div>
 
 
       <div class="buttons-block">
         <div class="error-message" ng-show="signup.email.$error.pattern">
-          <span><i class="icon ion-close-circled"></i> {{validation.email.message}}</span>
+          <span><i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{validation.email.message}}</span>
         </div>
         <div class="error-message" ng-show="signup.password.$error.pattern">
-          <span><i class="icon ion-close-circled"></i> {{validation.password.message}}</span>
+          <span><i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{validation.password.message}}</span>
         </div>
         <div class="error-message" ng-show="signup.phone.$error.pattern">
-          <span><i class="icon ion-close-circled"></i> {{validation.phone.message}}</span>
+          <span><i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{validation.phone.message}}</span>
         </div>
       </div>
 
@@ -53,12 +68,11 @@
     </form>
     <hr>
     <div class="buttons-block">
-      <a ng-click="!signup.$invalid && signUpWithEmail()" class="btn btn-white btn-block btn-lg" ng-disabled="signup.$invalid">Inscription</a>
-      <a ui-sref="start" class="btn btn-white btn-block btn-lg">Go Back</a>
+      <a ng-click="!signup.$invalid && signUpWithEmail()" class="btn btn-red btn-block btn-lg" ng-disabled="signup.$invalid">Inscription</a>
+      <a ui-sref="start" class="btn btn-white btn-block btn-lg">Retourner</a>
     </div>
-
+    <img class="layout__icon-bottom-right visible-md-block visible-lg-block" src="/img/icon_hero_drinking.png" alt="Icon Hero Drinking Juice">
+  </div>
+  <div class="col-md-3 visible-md-block visible-lg-block relative">
   </div>
 </div>
-
-
-

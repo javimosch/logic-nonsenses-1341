@@ -1,3 +1,12 @@
-html,body{
+html,
+body {
     font-family: 'PT Sans', sans-serif;
+}
+
+.title-bar__title {
+    font-family: 'PT Sans', sans-serif;
+}
+
+.form-control {
+    font-family: 'PT Sans', sans-serif!important;
 }

@@ -1,12 +1,13 @@
-<ion-modal-view id="privacy-modal">
-  <ion-header-bar>
-    <span class="title center">Charte de confidentialité</span>
-    <button class="button button-icon button-clear icon ion-close-round" ng-click="closePrivacy()"></button>
-  </ion-header-bar>
-  <ion-content overflow-scroll="true" padding="false" class="has-header">
-    <ion-list>
-      <ion-item>
-        <p>
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="$hide()">&times;</button>
+        <h4 class="modal-title">Charte de confidentialité</h4>
+      </div>
+      <div class="modal-body">
+
+         <p>
           <strong>
             CHARTE RELATIVE A LA PROTECTION<br>
             DES DONNEES A CARACTERE PERSONNEL DES UTILISATEURS
@@ -388,7 +389,13 @@
         <p>
             La présente charte est entrée en vigueur le 18/07/2016.
         </p>
-      </ion-item>
-    </ion-list>
-  </ion-ontent>
-</ion-modal-view>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" ng-click="$hide()">Retour</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

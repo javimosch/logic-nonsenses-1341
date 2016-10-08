@@ -10,6 +10,12 @@
     margin: 0 auto;
 }
 
-hr{
-        border-top: 0px;
+hr {
+    border-top: 0px;
+}
+
+@media only screen and (min-width: 992px) {
+    .address {
+        min-width: 500px;
+    }
 }

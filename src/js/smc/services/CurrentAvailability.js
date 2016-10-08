@@ -12,7 +12,7 @@ angular.module('shopmycourse.services')
     var currentAvailability = {
       schedules: [],
       shop_id: null,
-      deliveryman_id: $rootScope.currentUser.id
+      deliveryman_id: $rootScope.currentUser && $rootScope.currentUser.id
     };
 
     return {

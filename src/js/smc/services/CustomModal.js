@@ -9,7 +9,7 @@ angular.module('shopmycourse.services')
 
 .factory('CustomModal', function($window, $uibModal, $log,$modal,$q) {
 
-    function create(templateUrl, scopeParam) {
+    function create(templateUrl, scopeParam,showOnStartup) {
         var deferred = $q.defer()
         $log.debug('CustomModal: create from '+templateUrl);
         
@@ -18,7 +18,7 @@ angular.module('shopmycourse.services')
         var modal = $modal({
             //scope: scope,
             templateUrl: templateUrl,
-            show: false,
+            show: showOnStartup || false,
             controller: function($scope) {
                 
                 overwriteScope = function(object){

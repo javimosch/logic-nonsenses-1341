@@ -10,14 +10,14 @@
     "commit": "git add . | git commit --allow-empty-message --all -m",
     "push": "git push $1 master",
     "serve": "serve -p 8080",
-    "server": "node server.js",
     "build": "PROD=1 node index.js",
     "dev": "node ./node_modules/concurrently/src/main.js --kill-others \"npm run start\" \"npm run server\"",
     "gitlog": "git log --graph --pretty=oneline --abbrev-commit",
     "clear": "node lib/he.task.clear.js",
     "local": "ROOT_MODE=1 ./dev.sh smc",
-    "release": "./build.sh smc",
     "deploy": "./ftp_deploy.sh smc",
+    "server": "node server.js",
+    "release": "./build.sh smc",
     "heroku": "npm-run-parallel release server"
   },
   "repository": {

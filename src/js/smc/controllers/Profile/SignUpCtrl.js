@@ -7,7 +7,7 @@ angular.module('shopmycourse.controllers')
  * @description Page d'inscription
  */
 
-.controller('ProfileSignUpCtrl', function($scope, $rootScope, $state, toastr, Authentication, Validation, CurrentUser, LoadingModal, $log, CustomModal,$modal) {
+.controller('ProfileSignUpCtrl', function($scope, $rootScope, $state, toastr, Authentication, Validation, CurrentUser, LoadingModal, $log, CustomModal, $modal) {
 
 
   window.s = $scope;
@@ -47,18 +47,7 @@ angular.module('shopmycourse.controllers')
 
 
 
-  var socialSignInModal = CustomModal(EXTERNAL_POPUP_URL, {
-    isSignup: $scope.isSignup || false,
-    ok: function() {
-      $log.debug('SignIn: $modal.scope.ok');
 
-      this.resolveModal(true);
-    },
-    close: function() {
-      $log.debug('SignIn: $modal.scope.close');
-      this.resolveModal(false);
-    }
-  });
 
 
   /**
@@ -72,8 +61,8 @@ angular.module('shopmycourse.controllers')
       if (correct) {
         console.log('SignUp : Logged');
         $state.go('tabs.home');
-        if($scope.user.email){
-          toastr.success('Welcome '+$scope.user.email+'!', 'New Account');
+        if ($scope.user.email) {
+          toastr.success('Welcome ' + $scope.user.email + '!', 'New Account');
         }
       }
       else {
@@ -182,7 +171,6 @@ angular.module('shopmycourse.controllers')
   };
 
 
-
   /**
    * Affichage des popups CGU et CGU Lemonway
    */
@@ -195,6 +183,7 @@ angular.module('shopmycourse.controllers')
     }
   });
 
+
   $scope.openCGU = function() {
     CGUModal.$promise.then(CGUModal.show);
   };
@@ -205,5 +194,24 @@ angular.module('shopmycourse.controllers')
   $scope.closeCGU = function() {
     $scope.modal.hide();
   };
+
+
+  var socialSignInModal = CustomModal(EXTERNAL_POPUP_URL, {
+    isSignup: $scope.isSignup || false,
+    openCGU: $scope.openCGU,
+    openLemonWayCGU: $scope.openLemonWayCGU,
+    ok: function() {
+      $log.debug('SignIn: $modal.scope.ok');
+
+      this.resolveModal(true);
+    },
+    close: function() {
+      $log.debug('SignIn: $modal.scope.close');
+      this.resolveModal(false);
+    }
+  });
+
+
+
 
 })

@@ -13,8 +13,16 @@ angular.module('shopmycourse', [
   'shopmycourse.controllers',
   'shopmycourse.routes',
   'shopmycourse.services',
-  'shopmycourse.directives'
+  'shopmycourse.directives',
+  'ngSanitize'
 ])
+
+
+.filter('unsafe', function($sce) {
+  return function(val) {
+    return $sce.trustAsHtml(val);
+  };
+})
 
 /*
 .run(function($ionicPlatform) {
@@ -31,7 +39,7 @@ angular.module('shopmycourse', [
   });
 })*/
 
-.config(function ($httpProvider) {
+.config(function($httpProvider) {
   $httpProvider.interceptors.push('HTTPInterceptor');
 })
 
@@ -58,14 +66,14 @@ angular.module('shopmycourse', [
   window.$localForage = $localForage
 })
 
-.config(['$localForageProvider', function($localForageProvider){
-    $localForageProvider.config({
-      driver      : 'localStorageWrapper',
-      name        : 'ShopMyCourse',
-      version     : 1.0,
-      storeName   : 'main',
-      description : 'Main local database for ShopMyCourse web app'
-    });
+.config(['$localForageProvider', function($localForageProvider) {
+  $localForageProvider.config({
+    driver: 'localStorageWrapper',
+    name: 'ShopMyCourse',
+    version: 1.0,
+    storeName: 'main',
+    description: 'Main local database for ShopMyCourse web app'
+  });
 }])
 
 
@@ -73,15 +81,23 @@ angular.module('shopmycourse', [
   ConfigAPI.fetch({}, function(config) {
     config = JSON.parse(angular.toJson(config));
     Configuration.init(config);
-  },function(err){
+  }, function(err) {
     console.log(err)
   });
 })
 
-.filter('replaceHttp', function () {
-  return function (url) {
-    if(url) {
+.filter('replaceHttp', function() {
+  return function(url) {
+    if (url) {
       return url.replace(/http:/g, 'https:');
     }
   };
+})
+
+
+
+.run(function($rootScope, LoadingLayer) {
+  $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+    LoadingLayer.toggle(false);
+  });
 });
