@@ -29,11 +29,11 @@
 
 #html-shorcuts {
     background: white;
-    position: fixed;
+    position: absolute;
     width: 400px;
     right: 0px;
     z-index: 999999;
     border: 5px solid gray;
     padding: 25px 15px;
-    top: 10vh;
+    top: 7vh;
 }

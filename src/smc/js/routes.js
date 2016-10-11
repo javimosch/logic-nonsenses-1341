@@ -295,7 +295,7 @@ angular.module('shopmycourse.routes', [])
     }
   })
 
-  $urlRouterProvider.otherwise('/signin')
+  $urlRouterProvider.otherwise('/profile/signin')
 
 
 

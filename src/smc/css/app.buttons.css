@@ -10,6 +10,9 @@
 .btn.btn-md {
     min-width: 253px;
 }
+.btn.btn-lg {
+    min-width: 300px;
+}
 
 .btn-facebook {
     background: #3b5998;

@@ -19,7 +19,7 @@
         margin-top: 0px;
     }
     .section .input-buttons>a {
-        margin-left: 10px;
+        margin-left: 9px;
     }
 }
 
@@ -124,4 +124,15 @@
     font-size: 14px;
     color: white;
     margin-bottom: 5px;
+}
+
+
+
+.section .row > div { /*every col*/
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.section > div { /*main col of section*/
+    padding:0px 50px 0px 50px;
 }

@@ -5,6 +5,10 @@
 .padding-none{
     padding:0px!important;
 }
+.padding-h-50{
+    padding-left:50px!important;
+    padding-right:0px!important;
+}
 
 .hidden{
     display: none;
@@ -51,4 +55,8 @@
 .debug__quote{
     color:white;
     font-size:20px;
+}
+
+.margin-top-10{
+    margin-top:10px!important;
 }
