@@ -1,0 +1,23 @@
+<div class="row home">
+    <div class="col-sm-12">
+
+        <img src="/img/logo_circle_malibu.jpg" class="start__logo img-responsive">
+        <div class="buttons-block">
+
+            <a ng-click="shopDelivery()" ng-if="(currentAvailability.length <= 0)" class="btn btn-white btn-block btn-lg ">Livrer</a>
+
+            <a 
+            href="/html/booking1.html"
+            ng-if="deliveryDate.length <= 0 || !currentDelivery.shop_name" ng-click="scheduleOrder()" class="btn btn-white btn-block btn-lg ">Se faire livrer</a>
+
+
+            <a 
+            href="/html/start.html"
+            ng-click="logout()" class="btn btn-white btn-block btn-lg ">Logout</a>
+
+
+
+        </div>
+
+    </div>
+</div>

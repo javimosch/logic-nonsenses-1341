@@ -1,0 +1,54 @@
+.link:hover{
+    cursor:pointer;
+}
+
+.padding-none{
+    padding:0px!important;
+}
+
+.hidden{
+    display: none;
+}
+
+
+.relative{
+    position: relative;
+}
+
+.text-center{
+    text-align: center;
+}
+.text-left{
+    text-align:left!important;
+}
+
+.padding-small{
+    padding: 5px;
+}
+
+.link-white{
+    color:white;
+}
+.link-white:hover{
+    color:black;
+    text-decoration: none;
+}
+.red{
+    color:red;
+}
+.orange{
+    color:orange;
+}
+
+
+.inline{
+    display:inline!important;
+}
+.inline-block{
+    display:inline-block!important;
+}
+
+.debug__quote{
+    color:white;
+    font-size:20px;
+}

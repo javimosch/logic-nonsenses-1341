@@ -1,13 +1,12 @@
     module.exports = {
-        firebaseURL: 'getabiker',
         signalName: 'shopmycourses',
-        deploy:{
-            ftp:{
+        deploy: {
+            ftp: {
                 hostname: 'frontstuff.axfree.com',
-                port:21,
+                port: 21,
                 username: 'frontstu',
-                password: 'rIw73o1Y9f',
-                remoteRoot:'public_html'
+                password: process.env.FTP_PASSWORD,
+                remoteRoot: 'public_html'
             }
         },
         CDN_CSS: [

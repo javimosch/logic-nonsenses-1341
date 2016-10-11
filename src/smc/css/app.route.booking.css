@@ -1,0 +1,74 @@
+.booking__ranking-stars {
+    position: relative;
+    top: -3px;
+}
+
+#booking__bottom-rigth-label {
+    color: #5878F2;
+    line-height: 66px;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.booking__indication-text {
+    line-height: 35px;
+    color: white;
+    font-size: 15px
+}
+
+.booking__indication-text.md {
+    font-size: 18px
+}
+
+.booking__deliveryman-list {
+    padding: 10px 20px;
+}
+
+.booking__deliveryman-item {
+    line-height: 35px;
+    list-style: none;
+}
+
+.booking__deliveryman-item>div {
+    min-width: 120px;
+    display: inline-block;
+    color: white;
+    font-size: 15px;
+}
+
+#booking__indication-star {
+    position: relative;
+    top: -2px;
+}
+
+#booking__hero {
+    margin: auto auto;
+    display: block;
+}
+
+.booking__static-ad {
+    margin: 0 auto;
+    display: block;
+}
+
+.booking__title-left {
+    color: white;
+    font-size: 40px;
+    text-align: left;
+}
+
+.booking__subtitle-left {
+    color: white;
+    font-size: 25px;
+    text-align: left;
+}
+
+@media only screen and (min-width: 992px) {
+    .booking__static-ad {
+        position: absolute;
+        z-index: 1500;
+        max-width: 23vw;
+        right: 15px;
+        top: 1px;
+    }
+}
