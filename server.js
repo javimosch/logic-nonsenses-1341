@@ -106,7 +106,7 @@ else {
 
 	appStaticResPaths.forEach(n => {
 		Object.keys(config.apps).forEach(appName => {
-			var path = getPath(process.cwd() + '/src/res/' + appName + '/' + n);
+			var path = getPath(process.cwd() + '/src/'+appName+'/res/' + n);
 			if (path == false) return;
 			var route = '/' + appName + '/' + n;
 			app.use(route, express.static(path));
@@ -138,7 +138,7 @@ else {
 	app.get('/templates/:name', function(req, res) {
 		var name = req.params.name;
 		var url = req.protocol + '://' + req.get('host');
-		fs.readFile(process.cwd() + '/src/res/' + CURRENT_APP_NAME + '/templates/' + name, 'utf-8', function(err, page) {
+		fs.readFile(process.cwd() + '/src/'+CURRENT_APP_NAME+'/res/templates/' + name, 'utf-8', function(err, page) {
 			res.writeHead(200, {
 				'Content-Type': 'text/html'
 			});
@@ -153,12 +153,21 @@ else {
 	});
 
 	var ROOT_MODE = process.env.ROOT_MODE && process.env.ROOT_MODE.toString() == '1' || false;
+	
+	console.log('DEBUG: ROOT_MODE?',ROOT_MODE);
+	
 	if (ROOT_MODE) {
+		
+		console.log('DEBUG: Static Paths',appStaticResPaths.length);	
 
 		//STATIC
 		appStaticResPaths.forEach(n => {
-			var path = getPath(process.cwd() + '/src/res/' + CURRENT_APP_NAME + '/' + n);
-			if (path == false) return;
+			var path_str = process.cwd() + '/src/'+CURRENT_APP_NAME+'/res/' + n;
+			var path = getPath(path_str);
+			if (path == false) {
+				console.log('DEBUG: Not a valid path',path_str);
+				return;
+			}
 			var route = '/' + n;
 			app.use(route, express.static(path));
 			console.log('static-path (ROOT_MODE)', route);

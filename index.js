@@ -31,6 +31,9 @@ heOptions.dest('dist', 'dist-production');
 console.log('OUTPUT',heConfig().output());
 console.log('DATA-ROOT',heConfig().root);
 heBuild.all().then(() => {
+  
+  console.log('DEBUG: Index Build all success');
+  
   if (process.env.PROD == 1) {
     console.log('staticstuff build success for production');
     if(!process.env.ALIVE){
