@@ -9,7 +9,7 @@ var config = {
 };
 configsFileNames.forEach(path => {
 	var n = path.replace('.js', '').replace('config-', '');
-	console.log('loading config ' + n);
+	console.log('DEBUG: loading config ' + n);
 	config.apps = config.apps||{};
 	config.apps[n] = require(process.cwd() + '/configs/' + path);
 	if (!config.apps[n].root) {

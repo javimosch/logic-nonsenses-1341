@@ -1,0 +1,54 @@
+<div class="row relative">
+    <div class="title-bar">
+        <div class="col-md-10">
+            <h2 class="title-bar__title">Views</h2>
+        </div>
+    </div>
+</div>
+<div class="row section col-margin-7">
+    <div class="col-sm-12">
+        <div class="col-md-3 visible-md-block visible-lg-block relative">
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <ul class="list-group">
+                <li id="item" class="hidden link list-group-item" onClick="details(this)"></li>
+            </ul>
+        </div>
+        <div class="col-md-3 visible-md-block visible-lg-block relative">
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        
+
+        var local = store.get();
+        
+        var paginate = ws.collection('partials').paginate(10);
+        
+        function details(el){
+            var key = $(el).attr('data-key');
+            window.location = '/admin/partial_detail.html?key='+key;
+        }
+        
+        function next(){
+            paginate.next(function(items){
+                var li = $('#item');
+                var ul = li.parent();
+                var lis = [];
+                items.forEach(function(item){
+                    console.log(item)
+                    lis.push(li.clone().attr('data-key',item.key).html(item.fileName).addClass('x').removeClass('hidden'));
+                });
+                ul.append(lis);
+            });
+        }
+        
+        next();
+        
+        
+        
+        
+        
+
+        
+    </script>

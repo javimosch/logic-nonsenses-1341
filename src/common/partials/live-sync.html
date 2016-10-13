@@ -2,15 +2,21 @@
     (function() {
         /*global $*/
 
+        function has(str, word) {
+            return str.indexOf(word) != -1;
+        }
+
         function reloadStylesheets() {
             var queryString = '?reload=' + new Date().getTime();
+            var counter = 0;
             $('link[rel="stylesheet"]').each(function() {
-                if(this.href.indexOf('app.css')!=-1) {
-                    console.debug('DEBUG: reloading file',this.href);
+                if ((has(this.href, 'app.css') || has(this.href, '/raw/'))) {
+                    //console.debug('DEBUG: reloading file',this.href);
                     this.href = this.href.replace(/\?.*|$/, queryString);
+                    counter++;
                 }
-                
             });
+            console.debug('LIVE-SYNC: ' + counter + ' css files were reloaded. :)');
         }
 
         /*global firebase*/
@@ -19,7 +25,7 @@
             return window.location.origin.indexOf('c9users') !== -1;
         }
         if (!isDevEnv()) return console.log('live-sync', 'not-a-dev-enviroment');
-        console.info('live-sync-enabled signalName => {{signalName}}');
+        console.info('LIVE-SYNC:  signalName => {{signalName}}');
         var config = {
             apiKey: "AIzaSyCqh03BCNeafvQCHd3i82h-3TyeREmT3eU",
             authDomain: "getabiker-1276e.firebaseapp.com",
@@ -43,9 +49,10 @@
 
             var reload = snap.val().reload;
             var reload_css = snap.val().reload_css || false;
+            var full_reload = snap.val().full_reload || false;
 
-            if (reload_css) {
-                console.log('live-sync-reloading (CSS)');
+            if (reload_css && !full_reload) {
+                console.log('LIVE-SYNC:  reloading (CSS)');
                 reloadStylesheets();
                 return ref.update({
                     reload_css: false,
@@ -58,11 +65,17 @@
 
             if (reload && reload.toString() != counter) {
                 localStorage['livesync'] = reload.toString();
-                console.log('live-sync-reloading');
+                console.log('LIVE-SYNC: reloading');
+
+                ref.update({
+                    full_reload: false,
+                    reload: null
+                });
+
                 window.location.reload();
             }
             else {
-                console.log('live-sync-waiting');
+                console.log('LIVE-SYNC: waiting');
             }
         });
     })();

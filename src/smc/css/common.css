@@ -14,9 +14,16 @@
     display: none;
 }
 
+.position-bottom{
+    position: absolute;
+    bottom: 0px;
+}
 
 .relative{
     position: relative;
+}
+.absolute{
+    position:absolute;
 }
 
 .text-center{
@@ -59,4 +66,26 @@
 
 .margin-top-10{
     margin-top:10px!important;
+}
+
+
+.wraptocenter {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    /*
+    width: ...;
+    height: ...;*/
+    
+}
+.wraptocenter * {
+    vertical-align: middle;
+}
+.wraptocenter {
+    display: block;
+}
+.wraptocenter span {
+    display: inline-block;
+    height: 100%;
+    width: 1px;
 }

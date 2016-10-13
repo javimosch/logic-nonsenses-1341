@@ -16,7 +16,7 @@ var config = require(process.cwd() + '/config');
 //console.log('ARGV2',argv.ap);
 var APPNAME = argv.app || process.env.app || config.app || process.env.APP_NAME;
 config.app = APPNAME;
-console.log('APP', APPNAME);
+console.log('DEBUG: CURRENT APP_NAME ->', APPNAME);
 
 
 
@@ -29,14 +29,14 @@ heUtils.ensureDirectory(process.cwd()+'/dist-production/'+APPNAME);
 heOptions.setApp(config.app, config.apps[config.app]);
 
 heOptions.dest('dist', 'dist-production');
-console.log('OUTPUT',heConfig().output());
-console.log('DATA-ROOT',heConfig().root);
+//connsole.log('OUTPUT',heConfig().output());
+//console.log('DATA-ROOT',heConfig().root);
 heBuild.all().then(() => {
   
-  console.log('DEBUG: Index Build all success');
+  //console.log('DEBUG: Index Build all success');
   
   if (process.env.PROD == 1) {
-    console.log('staticstuff build success for production');
+    //console.log('DEBUG: build success for production');
     if(!process.env.ALIVE){
       process.exit(0);
     }else{
@@ -47,10 +47,11 @@ heBuild.all().then(() => {
     }
     return;
   }
-  console.log('staticstuff watch start');
+  //console.log('DEBUG: watch start');
   heWatch.templates();
   heWatch.scripts();
   heWatch.styles();
-  console.log('staticstuff watch ready');
+  
+  //console.log('DEBUG: watch ready');
 });
 //console.log(process.env.src||'no-src-specified');

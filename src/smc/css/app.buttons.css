@@ -5,6 +5,7 @@
     line-height: 66px;
     padding: 0px;
     min-width: 150px;
+    margin: 0 auto;
 }
 
 .btn.btn-md {
@@ -12,6 +13,7 @@
 }
 .btn.btn-lg {
     min-width: 300px;
+    max-width: 300px;
 }
 
 .btn-facebook {

@@ -1,6 +1,7 @@
 require('dotenv').config({
 	silent: true
 });
+require('dotenv').config();
 
 var express = require('express');
 var path = require("path");
@@ -10,19 +11,31 @@ var PROD = process.env.PROD && process.env.PROD.toString() == '1' || false;
 var port = process.env.PORT || 3000;
 var config = require('./config.js');
 var btoa = require('btoa');
-require('dotenv').config();
 var fs = require('fs');
-
 var dest = 'dist';
-
-
 var appStaticResPaths = ['img', 'fonts', 'images', 'includes', 'files', 'templates', 'lib', 'styles', 'css', 'js'];
+var CURRENT_APP_NAME = process.env.APP_NAME || '[DEFAULT_PROJECT_NAME]';
+
+
+function eachApp(action) {
+	Object.keys(config.apps).forEach(appName => {
+		action(appName);
+	});
+}
 
 function setStaticPaths() {
 	appStaticResPaths.forEach(n => {
-		console.log('route rule (static) ->', '/' + n + '/*')
+		console.log('SERVER: route rule (static) ->', '/' + n + '/*')
 		app.use('/' + n, express.static(dest + '/' + n));
 	});
+
+	eachApp((name) => {
+		console.log('SERVER: route rule (static, raw, for ' + name + ') ->', '/' + name + '/css/raw');
+		app.use('/' + name + '/css/raw', express.static(path.join(process.cwd(), 'src', name, 'css')));
+		
+		console.log('SERVER: route rule (static, raw, for ' + name + ') ->', '/' + name + '/js/raw');
+		app.use('/' + name + '/css/raw', express.static(path.join(process.cwd(), 'src', name, 'js')));
+	})
 }
 
 function setProductionRoutes() {
@@ -94,7 +107,7 @@ else {
 		//each prj has /vendor
 		_route = '/' + appName + '/vendor';
 		app.use(_route, express.static('./vendor'));
-		console.log('static-content - vendor - routing ' + _route);
+		console.log('SERVER:  static-content - vendor - routing ' + _route);
 	});
 	//root route render APP_NAME index
 	app.get('/', function(req, res, next) {
@@ -106,15 +119,20 @@ else {
 
 	appStaticResPaths.forEach(n => {
 		Object.keys(config.apps).forEach(appName => {
-			var path = getPath(process.cwd() + '/src/'+appName+'/res/' + n);
+			var path = getPath(process.cwd() + '/src/' + appName + '/res/' + n);
 			if (path == false) return;
 			var route = '/' + appName + '/' + n;
 			app.use(route, express.static(path));
-			console.log('static-path', route);
+			console.log('SERVER: static-path', route);
 
+			if(n=='fonts'){
+				
+				route = '/' + appName + '/css/' + n;
+				console.log('SERVER: static-path (CSS/FONTS)', route,path);
+				app.use(route, express.static(path));
+			}
 
-
-
+/*
 			app.get('/' + appName, function(req, res, next) {
 				res.sendFile('/' + appName + '/index.html', {
 					root: __dirname + '/' + dest
@@ -127,6 +145,7 @@ else {
 					root: __dirname + '/' + dest
 				});
 			});
+			*/
 
 		});
 	});
@@ -134,17 +153,17 @@ else {
 
 	//Allow projects to fetch html templates from /templates/[path]
 	//Search in the default (APP_NAME) project under src/res/templates
-	var CURRENT_APP_NAME = process.env.APP_NAME || '[DEFAULT_PROJECT_NAME]';
+
 	app.get('/templates/:name', function(req, res) {
 		var name = req.params.name;
 		var url = req.protocol + '://' + req.get('host');
-		fs.readFile(process.cwd() + '/src/'+CURRENT_APP_NAME+'/res/templates/' + name, 'utf-8', function(err, page) {
+		fs.readFile(process.cwd() + '/src/' + CURRENT_APP_NAME + '/res/templates/' + name, 'utf-8', function(err, page) {
 			res.writeHead(200, {
 				'Content-Type': 'text/html'
 			});
 			if (err) {
 				page = 'error';
-				console.log(err);
+				console.log("SERVER: template routing error",err);
 			}
 			//res.write(replaceAll(page, 'href="', 'href="' + url + '/' + appName + '/partial/'));
 			res.write(page);
@@ -153,24 +172,24 @@ else {
 	});
 
 	var ROOT_MODE = process.env.ROOT_MODE && process.env.ROOT_MODE.toString() == '1' || false;
-	
-	console.log('DEBUG: ROOT_MODE?',ROOT_MODE);
-	
+
+	console.log('SERVER: ROOT_MODE?', ROOT_MODE);
+
 	if (ROOT_MODE) {
-		
-		console.log('DEBUG: Static Paths',appStaticResPaths.length);	
+
+		console.log('SERVER: Static Paths', appStaticResPaths.length);
 
 		//STATIC
 		appStaticResPaths.forEach(n => {
-			var path_str = process.cwd() + '/src/'+CURRENT_APP_NAME+'/res/' + n;
+			var path_str = process.cwd() + '/src/' + CURRENT_APP_NAME + '/res/' + n;
 			var path = getPath(path_str);
 			if (path == false) {
-				console.log('DEBUG: Not a valid path',path_str);
+				//console.log('SERVER: Not a valid path', path_str);
 				return;
 			}
 			var route = '/' + n;
 			app.use(route, express.static(path));
-			console.log('static-path (ROOT_MODE)', route);
+			console.log('SERVER: static-path (ROOT_MODE)', route);
 		});
 
 
@@ -184,7 +203,7 @@ else {
 
 function startServer() {
 	http.listen(port, function() {
-		console.log('server - Production? ' + (PROD ? 'Oui!' : 'Non!'));
-		console.log('server - listening on port ' + port + '!');
+		console.log('SERVER: Production? ' + (PROD ? 'Oui!' : 'Non!'));
+		console.log('SERVER: listening on port ' + port + '!');
 	});
 }

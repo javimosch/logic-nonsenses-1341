@@ -136,3 +136,18 @@
 .section > div { /*main col of section*/
     padding:0px 50px 0px 50px;
 }
+
+
+
+
+.alert-ad-1 {}
+.alert-ad-1 button{
+    color: transparent;
+    opacity: 0!important;
+    left: -75px;
+    background: rgba(255,0,0,.2);
+    width: 80px;
+    height: 60px;
+    top: 30px!important;
+}
+.alert-ad-1 img{}
