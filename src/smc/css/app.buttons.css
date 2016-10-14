@@ -98,6 +98,10 @@
     color: white;
 }
 
+.buttons-block .btn.btn-white,.buttons-block .btn.btn-blue,.buttons-block .btn.btn-red{
+    margin-top:20px;
+}
+
 @media only screen and (min-width: 992px) {
     .btn.btn-white,
     .btn.btn-blue,

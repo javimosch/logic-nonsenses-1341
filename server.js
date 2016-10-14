@@ -13,7 +13,7 @@ var config = require('./config.js');
 var btoa = require('btoa');
 var fs = require('fs');
 var dest = 'dist';
-var appStaticResPaths = ['img', 'fonts', 'images', 'includes', 'files', 'templates', 'lib', 'styles', 'css', 'js'];
+var appStaticResPaths = ['img', 'fonts', 'images', 'includes', 'files', 'lib', 'styles', 'css', 'js']; //templates
 var CURRENT_APP_NAME = process.env.APP_NAME || '[DEFAULT_PROJECT_NAME]';
 
 
@@ -153,7 +153,7 @@ else {
 
 	//Allow projects to fetch html templates from /templates/[path]
 	//Search in the default (APP_NAME) project under src/res/templates
-
+/*
 	app.get('/templates/:name', function(req, res) {
 		var name = req.params.name;
 		var url = req.protocol + '://' + req.get('host');
@@ -170,6 +170,7 @@ else {
 			res.end();
 		});
 	});
+	*/
 
 	var ROOT_MODE = process.env.ROOT_MODE && process.env.ROOT_MODE.toString() == '1' || false;
 
