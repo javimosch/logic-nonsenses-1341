@@ -34,7 +34,7 @@ function setStaticPaths() {
 		app.use('/' + name + '/css/raw', express.static(path.join(process.cwd(), 'src', name, 'css')));
 		
 		console.log('SERVER: route rule (static, raw, for ' + name + ') ->', '/' + name + '/js/raw');
-		app.use('/' + name + '/css/raw', express.static(path.join(process.cwd(), 'src', name, 'js')));
+		app.use('/' + name + '/js/raw', express.static(path.join(process.cwd(), 'src', name, 'js')));
 	})
 }
 
