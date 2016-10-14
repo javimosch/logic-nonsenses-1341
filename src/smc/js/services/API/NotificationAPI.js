@@ -7,7 +7,7 @@ angular.module('shopmycourse.services')
  * @description Gestion des notifications avec le serveur
  */
 
-.service('NotificationAPI', function(API, Configuration, lodash) {
+.service('NotificationAPI', function(API, Configuration, lodash,$log,Promise) {
   var self = {};
   Configuration.ready().then(function() {
     var resource = API(Configuration.apiEndpoint + 'notifications', {
@@ -34,6 +34,10 @@ angular.module('shopmycourse.services')
       }
     });
     lodash.extend(self, resource);
+    //$log.debug('DEBUG: NotificationAPI loaded');
+    Promise('notificationAPI_awake').resolve(self);
   });
+  window.NotificationAPI = self;
+  self.awake = Promise('notificationAPI_awake');
   return self;
 });

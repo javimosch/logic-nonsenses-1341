@@ -5,51 +5,57 @@ angular.module('shopmycourse.controllers')
  * @function Controleur
  * @memberOf shopmycourse.controllers
  * @description Gestion des notifications
-*/
+ */
 
 .controller('NotificationsCtrl', function($scope, toastr, $state, NotificationAPI, DeliveryAPI, CurrentUser, CurrentDelivery, lodash) {
 
 	/**
 	 * Chargement des notifications
-	*/
+	 */
 	$scope.notifications = [];
-	CurrentUser.get(function (user) {
-		NotificationAPI.get({}, function (notifications) {
-			$scope.notifications = lodash.map(notifications, function (n) {
-				n.meta = JSON.parse(n.meta);
-				switch (n.mode) {
-					case 'delivery_request':
-						n.meta.buyer.rating_average = n.meta.buyer.rating_average || 0;
-						break;
-					case 'accepted_delivery':
-						CurrentDelivery.clear();
-						n.meta.deliveryman.rating_average = n.meta.deliveryman.rating_average || 0;
-						break;
-					case 'order_reminder':
-						n.meta.deliveryman.rating_average = n.meta.deliveryman.rating_average || 0;
-						break;
-					case 'cart_filled':
-						n.meta.buyer.rating_average = n.meta.buyer.rating_average || 0;
-						break;
+	CurrentUser.get(function(user) {
+
+		NotificationAPI.awake.then(function() {
+
+			NotificationAPI.get({}, function(notifications) {
+				$scope.notifications = lodash.map(notifications, function(n) {
+					n.meta = JSON.parse(n.meta);
+					switch (n.mode) {
+						case 'delivery_request':
+							n.meta.buyer.rating_average = n.meta.buyer.rating_average || 0;
+							break;
+						case 'accepted_delivery':
+							CurrentDelivery.clear();
+							n.meta.deliveryman.rating_average = n.meta.deliveryman.rating_average || 0;
+							break;
+						case 'order_reminder':
+							n.meta.deliveryman.rating_average = n.meta.deliveryman.rating_average || 0;
+							break;
+						case 'cart_filled':
+							n.meta.buyer.rating_average = n.meta.buyer.rating_average || 0;
+							break;
+					}
+					return n;
+				});
+				if (notifications.length > 0) {
+					$scope.openNotificationsModal();
 				}
-				return n;
+			}, function(err) {
+				console.error('Notifications error : ', err);
 			});
-			if (notifications.length > 0) {
-				$scope.openNotificationsModal();
-			}
-		}, function (err) {
-			console.error('Notifications error : ', err);
+
 		});
+
 	});
 
 	/**
 	 * Suppression d'une notification dans la liste de notifications
-	*/
+	 */
 	function removeNotification(id) {
 		var notifications = $scope.notifications;
 		$scope.notifications = [];
 		for (var i = 0; i < notifications.length; i++) {
-			if(notifications[i].id !== id) {
+			if (notifications[i].id !== id) {
 				$scope.notifications.push(notifications[i]);
 			}
 		}
@@ -62,7 +68,7 @@ angular.module('shopmycourse.controllers')
 	/**
 	 * @name $scope.readNotification
 	 * @description Passage d'une notification à l'état "Lue"
-	*/
+	 */
 	$scope.readNotification = function(notification, next) {
 		NotificationAPI.update({
 			idNotification: notification.id,
@@ -77,7 +83,7 @@ angular.module('shopmycourse.controllers')
 	/**
 	 * @name $scope.acceptDeliveryRequest
 	 * @description Acceptation d'une demande de livraison
-	*/
+	 */
 	$scope.acceptDeliveryRequest = function(notification) {
 		var myPopup = $ionicPopup.confirm({
 			template: 'Vous êtes sur le point d\'accepter la livraison, êtes-vous sûr ?',
@@ -122,7 +128,7 @@ angular.module('shopmycourse.controllers')
 	/**
 	 * @name $scope.declineDeliveryRequest
 	 * @description Refus d'une demande de livraison
-	*/
+	 */
 	$scope.declineDeliveryRequest = function(notification) {
 		var myPopup = $ionicPopup.confirm({
 			template: 'Vous êtes sur le point de décliner, êtes-vous sûr ?',
@@ -140,7 +146,7 @@ angular.module('shopmycourse.controllers')
 	/**
 	 * @name $scope.cancelOrder
 	 * @description Annulation d'une demande de livraison
-	*/
+	 */
 	$scope.cancelOrder = function(notification) {
 		var myPopup = $ionicPopup.confirm({
 			template: 'Vous êtes sur le point d\'annuler votre demande de livraison, êtes-vous sûr ?',
@@ -172,27 +178,31 @@ angular.module('shopmycourse.controllers')
 	/**
 	 * @name $scope.editCart
 	 * @description Lien vers la modification du panier
-	*/
-	$scope.editCart = function (notification) {
+	 */
+	$scope.editCart = function(notification) {
 		$ionicLoading.show({
 			template: 'Nous préparons votre panier...'
 		});
-			$scope.readNotification(notification, function () {
+		$scope.readNotification(notification, function() {
 			$scope.closeNotificationsModal();
 			$ionicLoading.hide();
-			$state.go('tabs.ordercontent', {idOrder: notification.meta.delivery.id});
+			$state.go('tabs.ordercontent', {
+				idOrder: notification.meta.delivery.id
+			});
 		});
 	};
 
 	/**
 	 * @name $scope.editCart
 	 * @description Lien vers une livraison
-	*/
-	$scope.goDelivery = function (notification) {
-			$scope.readNotification(notification, function () {
+	 */
+	$scope.goDelivery = function(notification) {
+		$scope.readNotification(notification, function() {
 			$scope.closeNotificationsModal();
 			$ionicLoading.hide();
-			$state.go('tabs.delivery', {idDelivery: notification.meta.delivery.id});
+			$state.go('tabs.delivery', {
+				idDelivery: notification.meta.delivery.id
+			});
 		});
 	};
 
