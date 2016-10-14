@@ -105,3 +105,21 @@
 .scrollToTop:hover {
     text-decoration: none;
 }
+
+
+.modal-default__hero{
+    width: 300px;
+    position: relative;
+    left: -25px;
+    margin: 0 auto;
+    display: block;
+}
+.modal-default__title{
+    color: #62A2FE;
+    text-align: center;
+    font-size: 40px;
+}
+.modal-default__message{
+    font-size: 25px;
+    padding: 10px 50px;
+}

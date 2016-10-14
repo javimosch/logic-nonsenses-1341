@@ -78,7 +78,8 @@
     color: white;
     border: 0px;
 }
-.btn-blue i{
+
+.btn-blue i {
     color: white;
     position: relative;
     top: -5px;
@@ -98,8 +99,21 @@
     color: white;
 }
 
-.buttons-block .btn.btn-white,.buttons-block .btn.btn-blue,.buttons-block .btn.btn-red{
-    margin-top:20px;
+.buttons-block .btn.btn-white,
+.buttons-block .btn.btn-blue,
+.buttons-block .btn.btn-red {
+    margin-top: 20px;
+}
+
+.btn.btn-white.btn-center,
+.btn.btn-blue.btn-center,
+.btn.btn-red.btn-center {
+    margin: 0 auto;
+    display: block;
+}
+
+.btn-notifications{
+    
 }
 
 @media only screen and (min-width: 992px) {

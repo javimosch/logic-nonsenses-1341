@@ -76,9 +76,10 @@
 }
 
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{
-  color: rgba(0, 0, 0, .8)!important;
+  color: rgba(0, 0, 0, .6)!important;
   background-color: rgba(255,255,255,.5);
 }
+
 
 .form-control:focus {
     border-color: transparent;
