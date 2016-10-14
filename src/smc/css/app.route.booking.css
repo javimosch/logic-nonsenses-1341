@@ -8,6 +8,7 @@
     line-height: 66px;
     font-size: 30px;
     font-weight: 800;
+    float: right;
 }
 
 .booking__indication-text {
@@ -70,7 +71,9 @@
     border-radius: 10px;
     padding: 27px 20px 20px 20px;
     margin: 0 auto;
-    max-width: 286px;
+    max-width: 300px;
+    min-height: 540px;
+    position: relative;
 }
 
 
@@ -117,6 +120,10 @@
     text-align: center;
 }
 
+.panier__title.same-height{
+    min-height: 65px;
+}
+
 .panier__address {
     font-size: 15px;
     font-weight: 800;
@@ -125,7 +132,8 @@
 .panier__list {
     list-style: none;
     padding: 0px;
-    max-height: 350px;
+    max-height: 290px;
+    min-height: 290px;
     overflow: hidden;
     overflow-y: scroll;
 }
@@ -134,37 +142,95 @@
     min-height: 100px;
     max-height: 150px;
     /* background: wheat; */
+    /* margin-bottom: 5px; */
 }
 
-.panier__product-icon-wrapper {
+
+.panier__product-units-wrapper{
+    display: none;
+}
+.panier__item:hover .panier__product-units-wrapper{display: block;position: relative;}
+.panier__product-units-wrapper .fa-minus-square{
+    left: 5px;
+    position: absolute;
+    top: 40px;
+    font-size: 40px;
+    color: #61A1FE;
+}
+.panier__product-units-wrapper .fa-plus-square{
+    right: 5px;
+    position: absolute;
+    top: 40px;
+    font-size: 40px;
+    color: #61A1FE;
+}
+
+.panier__list.selectable .panier__item:hover{
+    background-color: rgba(0,0,255,.1);
+    cursor:pointer;
+}
+
+.panier__product-icon-wrapper,.panier__magasin-icon-wrapper {
     display: inline-block;
     width: 100px;
     height: 100px;
     /* background: yellowgreen; */
+    /* vertical-align: middle; */
 }
 
-.panier__product-icon {
+.panier__product-icon,.panier__magasin-icon {
     margin: auto auto;
     display: block;
+    margin-top: 17px;
+}
+.panier__magasin-icon{
+    font-size: 40px;
+    text-align: center;
+    color: #60A1FE;
+    margin-top: 30px;
 }
 
-.panier__product__description-wrapper {
+.panier__product__description-wrapper,.panier__magasin__description-wrapper {
     display: inline-block;
     vertical-align: top;
+    margin-top: 20px;
+}
+.panier__magasin__description-wrapper{
+    margin-top: 28px;
 }
 
-.panier__product__title {
+.panier__product__title,.panier__magasin__title {
     margin: 0px 0px 5px 0px;
 }
+.panier__magasin__title{
+    font-size: 20px;
+}
 
-.panier__product__description {
+.panier__product__description,.panier__magasin__description {
     text-align: left;
     margin: 0px 0px 5px 0px;
 }
 
-.panier__product__price {
+.panier__product__price,.panier__product__quantity {
     text-align: left;
+    margin: 0px 0px 5px 0px;
 }
+
+.panier__product__quantity {
+    
+}
+
+.panier__search-wrapper{}
+.panier__search-wrapper input{
+    height: 50px;
+    font-size: 18px;
+    border: 0px;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+}
+.panier__search-wrapper a{
+    float: right;
+}
+.panier__search-wrapper i{}
 
 
 /* LIVREUR */
@@ -390,6 +456,8 @@
     padding-left: 10px;
 }
 
+
+
 @media only screen and (min-width: 992px) {
     
     .livreur__wrapper{
@@ -418,13 +486,17 @@
     }
     .booking__static-ad {
         position: absolute;
-        z-index: 1500;
+        z-index: 1600;
         max-width: 195px;
         right: 50px;
         top: 86px;
     }
     .ad-center {
         right: 50px;
+    }
+     .ad-top-right {
+        right: 50px;
+        top: 10px;
     }
 }
 

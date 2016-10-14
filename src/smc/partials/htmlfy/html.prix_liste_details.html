@@ -1,7 +1,7 @@
 <div class="row relative">
     <div class="title-bar">
         <div class="col-md-9">
-            <h2 class="title-bar__title">Comparer les prix: Par produit</h2>
+            <h2 class="title-bar__title">Comparer les prix: Liste des produits</h2>
         </div>
         <div class="col-md-3 col-sm-offset-0">
 
@@ -62,7 +62,7 @@
             <div class="col-sm-12 col-md-4">
                 <div class="panier__wrapper">
 
-                    <h3 class="panier__title same-height">Sélectionner un produit</h3>
+                    <h3 class="panier__title same-height">Sélectionner les produits</h3>
                     <p class="panier__address"></p>
                     <div class="panier__separator"></div>
                     <ul class="panier__list selectable">
@@ -117,11 +117,15 @@
             <div class="col-sm-12 col-md-4">
                 <div class="panier__wrapper">
 
-                    <h3 class="panier__title same-height">Votre produit</h3>
+                    <h3 class="panier__title same-height">Votre liste</h3>
                     <p class="panier__address"></p>
                     <div class="panier__separator"></div>
-                    <ul class="panier__list">
+                    <ul class="panier__list selectable">
                         <li class="panier__item">
+                            <div class="panier__product-units-wrapper">
+                                <i class="fa fa-minus-square" aria-hidden="true"></i>
+                                <i class="fa fa-plus-square" aria-hidden="true"></i>
+                            </div>
                             <div class="panier__product-icon-wrapper">
                                 <img class="panier__product-icon" src="/img/sample/product.jpg" alt="panier product">
                             </div>
@@ -143,11 +147,8 @@
         </div>
 
         <div class="row col-margin-8">
-            <div class="col-sm-7 col-md-10">
-                <a href="/html/prix_product_2.html" ng-click="signInWithEmail()" class="btn btn-red btn-block btn-lg" ng-disabled="signin.$invalid">Rechercher le meilleur prix</a>
-            </div>
-            <div class="col-sm-3 col-sm-offset-2 col-md-offset-0 col-md-2">
-                <label id="booking__bottom-rigth-label">Étape 1/2</label>
+            <div class="col-sm-12 col-md-4">
+                <a href="/html/prix_liste_2.html" ng-click="signInWithEmail()" class="btn btn-red btn-block btn-lg" ng-disabled="signin.$invalid">Ajouter la liste</a>
             </div>
         </div>
 

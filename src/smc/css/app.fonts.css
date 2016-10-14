@@ -10,3 +10,8 @@ body {
 .form-control {
     font-family: 'PT Sans', sans-serif!important;
 }
+
+h4{
+    color:white;
+    font-size:20px;
+}

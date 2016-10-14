@@ -1,4 +1,6 @@
-.btn.btn-white,.btn.btn-blue,.btn.btn-red {
+.btn.btn-white,
+.btn.btn-blue,
+.btn.btn-red {
     height: 66px;
     font-size: 20px;
     font-weight: 800!important;
@@ -8,9 +10,15 @@
     margin: 0 auto;
 }
 
+.btn.btn-xs {
+    min-width: 50px;
+    height: 50px;
+}
+
 .btn.btn-md {
     min-width: 253px;
 }
+
 .btn.btn-lg {
     min-width: 300px;
     max-width: 300px;
@@ -41,7 +49,8 @@
 
 .btn-white {
     background-color: white;
-    color: #EB5151; /*#5D9FFE;*/
+    color: #EB5151;
+    /*#5D9FFE;*/
     border: 0px;
 }
 
@@ -55,17 +64,26 @@
     border: 0px;
 }
 
-.btn-red:hover,.btn-red:hover i {
+.btn-red:hover,
+.btn-red:hover i {
     color: black;
 }
+
 .btn-red i {
-    color:white;
+    color: white;
 }
 
 .btn-blue {
     background-color: #5FA0FE;
     color: white;
     border: 0px;
+}
+.btn-blue i{
+    color: white;
+    position: relative;
+    top: -5px;
+    margin: 0px;
+    padding: 0px;
 }
 
 .btn-blue:hover {
@@ -78,4 +96,12 @@
 
 .white {
     color: white;
+}
+
+@media only screen and (min-width: 992px) {
+    .btn.btn-white,
+    .btn.btn-blue,
+    .btn.btn-red {
+        margin: 0;
+    }
 }
