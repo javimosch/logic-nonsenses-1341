@@ -7,7 +7,7 @@ angular.module('shopmycourse.controllers')
  * @description Page d'accueil pour les utilisateurs connectés
  */
 
-.controller('HomeCtrl', function($scope, $state, CurrentUser, CurrentAvailability, CurrentDelivery, DeliveryRequestAPI, moment, lodash, Authentication) {
+.controller('HomeCtrl', function($scope, $state,LoadingModal, CurrentUser, CurrentAvailability, CurrentDelivery, DeliveryRequestAPI, moment, lodash, Authentication) {
 
 
   $scope.logout = function() {
@@ -19,11 +19,8 @@ angular.module('shopmycourse.controllers')
   /**
    * Affichage du message de chargement pour récupérer les dernières informations
    */
-   /*
-  $ionicLoading.show({
-    template: 'Nous recherchons les dernières informations...'
-  });
-  */
+  LoadingModal.show('Nous recherchons les dernières informations...');
+  
 
   /**
    * Chargement des disponibilités
@@ -42,7 +39,7 @@ angular.module('shopmycourse.controllers')
       }
     }
     $scope.date = lodash.uniq(dates).join(', ');
-    //$ionicLoading.hide();
+    LoadingModal.hide();
   });
 
   /**

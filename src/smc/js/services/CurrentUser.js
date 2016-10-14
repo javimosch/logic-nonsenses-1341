@@ -7,7 +7,7 @@ angular.module('shopmycourse.services')
  * @description Stockage de l'utilisateur actuel
 */
 
-.service('CurrentUser', function ($rootScope, DataStorage, UserAPI, HTTPInterceptor) {
+.service('CurrentUser', function ($rootScope, DataStorage, UserAPI, HTTPInterceptor,Promise) {
     var currentUser = {};
 
     function avatarFromUserAvatar(avatar) {
@@ -21,7 +21,8 @@ angular.module('shopmycourse.services')
       }
     }
 
-    return {
+    var self = {
+        awake: Promise('currentUser_wake'),
         /**
          * @name init
          * @description Initialisation de l'utilisateur
@@ -31,6 +32,7 @@ angular.module('shopmycourse.services')
             currentUser = currentUserFromStorage || {};
             //isLogged = (Object.keys(currentUser).length > 0);
             $rootScope.currentUser = currentUser;
+            Promise('currentUser_wake').resolve($rootScope.currentUser);
             return DataStorage.get('token').then(function (tokenFromStorage) {
               next();
               HTTPInterceptor.setToken(tokenFromStorage);
@@ -90,4 +92,6 @@ angular.module('shopmycourse.services')
           return avatarFromUserAvatar(currentUser.avatar);
         }
     };
+    window.CurrentUser = self;
+    return self;
 });

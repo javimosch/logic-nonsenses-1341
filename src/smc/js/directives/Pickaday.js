@@ -54,6 +54,12 @@ angular.module('shopmycourse.directives')
             picker.show()
             
             function repositionButtomRight(){
+                
+                function offsetX(){
+                    if(attrs.offsetx!=undefined) return parseInt(attrs.offsetx);
+                    else return 0;
+                }
+                
                 var popup = angular.element(attrs.container);
                 var elemLeft = elem.offset().left+elem.outerWidth();
                 var popupLeft = popup.offset().left+popup.innerWidth();
@@ -61,7 +67,7 @@ angular.module('shopmycourse.directives')
                 var e  = elem;
                 var p = popup;
                 if(p.offset().left > e.offset().left){
-                    e.css('max-width',p.offset().left-e.offset().left+p.find('.pika-single').outerWidth()+15)
+                    e.css('max-width',p.offset().left-e.offset().left+p.find('.pika-single').outerWidth()+offsetX())
                 }
             }
             
@@ -75,7 +81,7 @@ angular.module('shopmycourse.directives')
             });
 
             //var picker = new window.Pikaday({ field: elem.get(0) });
-            console.log(elem.get(0));
+            //console.log(elem.get(0));
 
 
             function i18n() {

@@ -7,9 +7,26 @@ angular.module('shopmycourse.controllers')
  * @description Sélection des créneaux d'une ou plusieurs propositions de livraison
  */
 
-.controller('DeliveriesScheduleCtrl', function($scope, $rootScope, LoadingModal, $state, CurrentUser, CurrentAvailability, AvailabilityAPI, CurrentDelivery, DeliveryStore, CurrentAddress, lodash, moment, DomRefresher) {
+.controller('DeliveriesScheduleCtrl', function($scope, $rootScope, LoadingModal, $state, CurrentUser, CurrentAvailability, AvailabilityAPI, CurrentDelivery, DeliveryStore, CurrentAddress, lodash, moment, DomRefresher,CustomModal,$log) {
 
   window.s = $scope;
+  
+  CurrentAvailability.awake.then(function(local){
+    $scope.availability = local;
+    DomRefresher();
+  });
+  
+  $scope.shopDescription = function(){
+    if(!$scope.availability) return '';
+    if(!$scope.availability.shop) return '';
+    return $scope.availability.shop.name+', '+$scope.availability.shop.address;
+  };
+  
+  $scope.hasSelectedTimes = function(){
+      return $scope.selected && Object.keys($scope.selected).length > 0 && $scope.selected[Object.keys($scope.selected)[0]]!=undefined 
+      && $scope.selected[Object.keys($scope.selected)[0]].length > 0;
+  };
+  
   /**
    * Génération des créneaux de livraison à partir de maintenant
    */
@@ -41,26 +58,40 @@ angular.module('shopmycourse.controllers')
 
   }
 
-  /*
-  for (var i = 0; i < 7; i++) {
-    var date = new Date(new Date().getTime() + i * 24 * 60 * 60 * 1000);
-    var day = moment(date).hours(0).minutes(0).seconds(0);
-    var scheduleTimes = [];
-    lodash.each(times, function(time) {
-      var hours = time.replace('h', '').split('-');
-      var start = parseInt(hours[0]);
+ 
 
-      day.hours(start);
-      if (day.unix() >= (now.unix() - (90 * 60))) {
-        scheduleTimes.push(time);
-      }
-    });
-    $scope.schedules.push({
-      date: date,
-      times: scheduleTimes
-    });
-  };*/
+  
+  var successModal = CustomModal("/templates/modals/default.html", {
+    modalImg: 'img/notifs/bravo.png',
+    modalTitle: "Bravo !",
+    modalMessage:"Votre proposition de livraison a été enregistrée. Vous serez notifié dés qu'une demande de livraison correspondra à vos critères.",
+    close: function() {
+      this.resolveModal(true);
+    }
+  });
 
+  /**
+   * @name $scope.validate
+   * @description Vérifie qu'au moins un créneau a été sélectionné avant enregistrement de ceux-ci
+   */
+  $scope.validate = function() {
+    //if (Object.keys($scope.selected).length > 0) {
+      LoadingModal.show('Nous enregistrons votre disponibilité...');
+      CurrentAvailability.setSchedules($scope.selected, function(currentAvailability) {
+        AvailabilityAPI.create(currentAvailability, function() {
+          $log.debug('DEBUG: Availabilities created !');
+          LoadingModal.hide();
+        }, function(err) {
+          $log.warn('WARN: Erreur',err);
+          LoadingModal.hide();
+        });
+        successModal.show().then(function(){
+          $state.go('tabs.home');
+        });
+      });
+  };
+  
+  
   /**
    * @name $scope.selectTime
    * @description Sélection d'un ou plusieurs créneaux
@@ -95,52 +126,8 @@ angular.module('shopmycourse.controllers')
     return ($scope.selected[date].indexOf(time) > -1);
   };
 
-  /**
-   * @name $scope.validate
-   * @description Vérifie qu'au moins un créneau a été sélectionné avant enregistrement de ceux-ci
-   */
-  $scope.validate = function() {
-    if (Object.keys($scope.selected).length > 0) {
-      $ionicLoading.show({
-        template: 'Nous enregistrons votre disponibilité...'
-      });
-      CurrentAvailability.setSchedules($scope.selected, function(currentAvailability) {
-        AvailabilityAPI.create(currentAvailability, function() {
-          console.log('Availabilities created !');
-          $ionicLoading.hide();
-        }, function(err) {
-          console.log('Erreur');
-          console.log(err);
-          $ionicLoading.hide();
-        });
-        $scope.modalTitle = "Bravo !";
-        $scope.modalMessage = "Votre proposition de livraison a été enregistrée. Vous serez notifié dés qu'une demande de livraison correspondra à vos critères.";
-        $scope.modalImg = 'img/notifs/bravo.png';
-        $scope.modalClose = function() {
-          CurrentDelivery.clear(function() {
-            $state.go('tabs.home');
-            $scope.modal.hide();
-          });
-        }
-        $ionicModal.fromTemplateUrl('default-modal.html', {
-          scope: $scope,
-          animation: 'slide-in-up'
-        }).then(function(modal) {
-          $scope.modal = modal;
-          $scope.modal.show();
-        });
-      });
-    }
-    else {
-      $ionicPopup.alert({
-        title: 'Sélection du créneau',
-        template: 'Merci de sélectionner au moins un créneau !'
-      });
-    }
-  };
 
-
-
+/*
   $scope.today = function() {
     $scope.dt = new Date();
   };
@@ -202,5 +189,6 @@ angular.module('shopmycourse.controllers')
 
     return '';
   }
+  */
 
 });

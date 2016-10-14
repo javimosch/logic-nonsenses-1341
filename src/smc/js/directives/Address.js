@@ -137,7 +137,9 @@ angular.module('shopmycourse.directives')
                         
                         
                         if(typeof scope.change == 'function'){
-                            scope.change();
+                            scope.change({
+                                value : result.formatted_address
+                            });
                         }
                         
                         
