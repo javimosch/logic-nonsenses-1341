@@ -9,9 +9,8 @@ angular.module('shopmycourse.directives')
 .directive('notifications', ['$modal',function($modal) {
 
   return {
-    template: '<button class="button button-clear button-icon" ng-click="openNotificationsModal()"><i class="icon-smc-notification" style="font-size:32px;"></i></button>',
+    template: '<a class="btn btn-red btn-lg float-right btn-notifications" ng-click="openNotificationsModal()"><i class="icon-smc-notification"></i>&nbsp;Notifications</a>',
     link: function($scope, $element, $attrs) {
-
 
       var modal = $modal({
         scope: $scope,

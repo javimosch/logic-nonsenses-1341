@@ -5,60 +5,87 @@
     </div>
 </div>
 
-<div class="row profile">
-
-
+<div class="row profile section">
     <div class="col-sm-12 col-md-12">
 
-        <notifications></notifications>
-        <div class="item" id="profile-header">
-            <img class="profil-pic icon-smc-profile" data-ng-src="{{avatarBackground}}"></img>
-            <div class="name">{{user.firstname}} {{user.lastname}}</div>
-            <div class="profile__edit-account"><a ui-sref="tabs.editprofile">Modifier le compte</a></div>
+        <div class="row col-margin-5" id="profile-information">
+            <div class="col-md-12">
+                <notifications></notifications>
+            </div>
+        </div>
+
+        <div class="row" id="profile-information">
+            <div class="col-md-12">
+
+                <div class="item" id="profile-header">
+                    <img class="profil-pic icon-smc-profile" data-ng-src="{{avatarBackground}}"></img>
+                    <div class="name">{{user.firstname}} {{user.lastname}}</div>
+                    <div class="profile__edit-account"><a ui-sref="tabs.editprofile">Modifier le compte</a></div>
+                </div>
+            </div>
         </div>
 
 
-        
 
-        <div class="row" id="profile-information">
+        <div class="row col-margin-5" id="profile-information">
             <div class="col-md-6">
 
-                <div class="input-group">
-                    <div class="col-md-2 padding-none">
-                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
-                    </div>
-                    <div class="col-md-10 padding-none">
-                        <input ng-readonly='true' type="text" class="form-control" placeholder="Address email" ng-value="user.email" />
+                <div class="row">
+                    <div class="col-xs-12 padding-none">
+                        <div class="input-group center-block">
+                            <div class="row">
+                                <div class="col-md-2 padding-none">
+                                    <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-md-10 padding-none">
+                                    <input ng-readonly='true' type="text" class="form-control" placeholder="Address email" ng-value="user.email" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="input-group">
-                    <div class="col-md-2 padding-none">
-                        <i class="fa fa-mobile" aria-hidden="true"></i>
-                    </div>
-                    <div class="col-md-10 padding-none">
-                        <input ng-readonly='true' type="text" class="form-control" placeholder="Mobile" ng-value="user.phone" />
+                <div class="row col-margin-5">
+                    <div class="col-xs-12 padding-none">
+                        <div class="input-group center-block">
+                            <div class="row">
+                                <div class="col-md-2 padding-none">
+                                    <i class="fa fa-mobile" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-md-10 padding-none">
+                                    <input ng-readonly='true' type="text" class="form-control" placeholder="Mobile" ng-value="user.phone" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
             </div>
             <div class="col-md-6">
 
-                <div class="input-group">
-                    <div class="col-md-2 padding-none">
-                        <i class="fa fa-credit-card" aria-hidden="true"></i>
-                    </div>
-                    <div class="col-md-10 padding-none">
-                        <input ui-sref="tabs.editcreditcard" type="text" class="form-control link" placeholder="Carte" ng-value="user.wallet.credit_card_display ? user.wallet.credit_card_display : 'Enregistrer ma carte'" />
+                <div class="row">
+                    <div class="col-xs-12 padding-none">
+                        <div class="input-group center-block">
+                            <div class="col-md-2 padding-none">
+                                <i class="fa fa-credit-card" aria-hidden="true"></i>
+                            </div>
+                            <div class="col-md-10 padding-none">
+                                <input ui-sref="tabs.editcreditcard" type="text" class="form-control link" placeholder="Carte" ng-value="user.wallet.credit_card_display ? user.wallet.credit_card_display : 'Enregistrer ma carte'" />
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="input-group" id="profile-wallet">
-                    <div class="col-md-2 padding-none">
-                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    </div>
-                    <div class="col-md-10 padding-none">
-                        <input ng-readonly='true' type="text" class="form-control link" placeholder="Wallet" ng-value="'Valeur du wallet : ' + walletValue | number:2" />
+                <div class="row col-margin-5">
+                    <div class="col-xs-12 padding-none">
+                        <div class="input-group center-block" id="profile-wallet">
+                            <div class="col-md-2 padding-none">
+                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                            </div>
+                            <div class="col-md-10 padding-none">
+                                <input ng-readonly='true' type="text" class="form-control link" placeholder="Wallet" ng-value="'Valeur du wallet : ' + walletValue | number:2" />
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -66,25 +93,27 @@
         </div>
 
         <div class="row">
-            <!--ng-if="currentAddress.address"-->
-            <div class="col-md-12">
+            
+            <div class="col-md-6">
 
-                <div class="input-group">
-                    <div class="col-md-2 padding-none" style="    max-width: 50px;">
-                        <i class="fa fa-map-marker" aria-hidden="true"></i>
-                    </div>
-                    <div class="col-md-10 padding-none">
-                        <input type="text" class="form-control address" address model="addressData" field="address" postCode="zip" city="city" name="addressInput" change="onAddressChange()" placeholder="Addresse" />
-                        <!-- ng-value="getCurrentAddress()" -->
+                <div class="row">
+                    <div class="col-xs-12 padding-none">
+                        <div class="input-group center-block">
+                            <div class="row">
+                                <div class="col-md-2 padding-none">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-md-10 padding-none">
+                                    <input type="text" class="form-control address" address model="addressData" field="address" postCode="zip" city="city" name="addressInput" change="onAddressChange()" placeholder="Addresse" />
+                                    <!-- ng-value="getCurrentAddress()" -->
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
             </div>
-            <!--
-            <div class="col-md-3">
-                <div class="profile__edit-account"><a ui-sref="tabs.editaddress">Modifier l'adresse</a></div>
-            </div>
-            -->
+           
         </div>
 
         <div class="row">
@@ -101,9 +130,9 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <div class="buttons-block">
+                
                     <a ng-click="logout()" class="btn btn-red btn-block btn-lg">Se déconnecter</a>
-                </div>
+
             </div>
         </div>
 

@@ -7,7 +7,7 @@ angular.module('shopmycourse.controllers')
  * @description Page des paramètres
  */
 
-.controller('ProfileShowCtrl', function(DomRefresher, $log, $scope, $state, Authentication, CurrentUser, CurrentAddress, UserAPI, LoadingModal, $modal, $rootScope, CustomModal) {
+.controller('ProfileShowCtrl', function(DomRefresher, $log, $scope, $state, Authentication, CurrentUser, CurrentAddress, UserAPI, LoadingModal, $modal, $rootScope, CustomModal, toastr) {
 
   var CONFIRM_POPUP_URL = '/templates/Confirm.html';
 
@@ -42,10 +42,11 @@ angular.module('shopmycourse.controllers')
     }
   }, false);
 
-
-  $scope.onAddressChange = function() {
+  
+  $scope.onAddressChange = function(asd) {
     CurrentAddress.set($scope.addressData);
-  }
+    //toastr.info("Addres changé to " + $scope.addressData.address, 'Info');
+  };
 
   /**
    * Chargement de l'utilisateur actuel
