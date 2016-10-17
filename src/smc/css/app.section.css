@@ -133,8 +133,9 @@
     padding-left: 0px;
 }
 
-.section > div { /*main col of section*/
-    padding:0px 50px 0px 50px;
+.section > div {
+ /*main col of section*/
+ padding: 0px 25px 0px 25px;
 }
 
 

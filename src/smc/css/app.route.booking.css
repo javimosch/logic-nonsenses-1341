@@ -74,7 +74,9 @@
     max-width: 300px;
     min-height: 540px;
     position: relative;
+    width: 300px
 }
+
 
 
 /* Let's get this party started */
@@ -488,12 +490,16 @@
         /* display: table; */
     }
     .booking__static-ad {
-        position: absolute;
-        z-index: 1600;
-        max-width: 195px;
-        right: 50px;
-        top: 86px;
-    }
+        /*   
+                                                   position: absolute;
+                                                        z-index: 1600;
+                                                        max-width: 195px;
+                                                        right: 50px;
+                                                        top: 86px;
+                                                */
+        float: right;
+        margin: 25px 25px 25px auto
+}
     .ad-center {
         right: 50px;
     }

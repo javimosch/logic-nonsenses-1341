@@ -57,15 +57,7 @@
   opacity: 1;
 }
 
-.input-group i {
-  color: white;
-  font-size: 30px;
-  line-height: 66px;
-  text-align: center;
-  margin: auto auto;
-  display: block;
-  min-width: 40px;
-}
+
 
 .form-control {
   height: 66px!important;
@@ -150,4 +142,21 @@ color: rgba(0, 0, 0, .5)!important;
 
 .col-main{
   padding:0px 50px 0px 50px!important;
+}
+
+
+.input-group.light{}
+.input-group.light i {
+    color: white;
+    font-size: 20px;
+}
+.input-group.light input {
+    background: rgba(255,255,255,.1);
+    border: 1px solid #ccc;
+    padding: 6px 12px;
+}
+.input-group.light .input-group-addon {
+  
+    background-color: transparent!important;
+  
 }
