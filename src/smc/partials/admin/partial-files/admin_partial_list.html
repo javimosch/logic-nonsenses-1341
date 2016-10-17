@@ -19,36 +19,36 @@
     </div>
 
     <script type="text/javascript">
-        
-
         var local = store.get();
-        
+
         var paginate = ws.collection('partials').paginate(10);
-        
-        function details(el){
+
+        function details(el) {
             var key = $(el).attr('data-key');
-            window.location = '/admin/partial_detail.html?key='+key;
+            window.location = '/admin/views/detail?key=' + key;
         }
-        
-        function next(){
-            paginate.next(function(items){
+
+        function next() {
+            paginate.next(function(items) {
                 var li = $('#item');
                 var ul = li.parent();
                 var lis = [];
-                items.forEach(function(item){
-                    console.log(item)
-                    lis.push(li.clone().attr('data-key',item.key).html(item.fileName).addClass('x').removeClass('hidden'));
+                items.forEach(function(item) {
+                    //console.log(item)
+                    lis.push(li.clone().attr('data-key', item.key).html(item.fileName).addClass('x').removeClass('hidden'));
                 });
                 ul.append(lis);
+                toast.clear('L', 1000).info('F', 'Fetch complete');
             });
-        }
-        
-        next();
-        
-        
-        
-        
-        
 
-        
+        }
+
+        toast.info('L', 'Loading', 99999);
+        next();
+
+
+       
+
+
+
     </script>

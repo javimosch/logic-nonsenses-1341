@@ -18,11 +18,12 @@
         <style type="text/css" media="screen">
             #editor {
                 width: 100%;
-                height: 200px;
+                height: 500px;
+                overflow-y: scroll
             }
         </style>
         <div id="editor">
-            ww
+            
         </div>
     </div>
 </div>
@@ -47,25 +48,40 @@
 <script type="text/javascript">
     var local = store.get();
 
+
+toast.info('L', 'Loading', 99999);
+
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/kuroir");
     editor.getSession().setMode("ace/mode/javascript");
     var item = null;
-    ws.ref().child('partials/' + url.param('key')).once('value', function(snap) {
-        item = snap.val();
-        $('#fileName').val(item.fileName);
-        editor.setValue(window.decodeURIComponent(item.content))
-    });
-    
-    function save(){
-        ws.ref().child('partials/' + url.param('key')).update({
-            fileName: $('#fileName').val() || item.fileName,
-            content: window.encodeURIComponent(editor.getValue())
+
+    function load(silent) {
+        editor.setOptions({ readOnly: true})
+        ws.ref().child('partials/' + url.param('key')).once('value', function(snap) {
+            item = snap.val();
+            $('#fileName').val(item.fileName);
+            editor.setValue(window.decodeURIComponent(item.content))
+            if(!silent) toast.clear('L', 1000).info('F', 'Fetch complete',2000);
+            editor.setOptions({ readOnly: false})
         });
     }
-    
+
+    function save() {
+        toast.clearAll().info('S', 'Saved', 2000);
+        ws.ref().child('partials/' + url.param('key')).update({
+            fileName: $('#fileName').val() || item.fileName,
+            content: window.encodeURIComponent(editor.getValue()),
+            updatedAt: Date.now()
+        });
+        
+        load(true);
+    }
+
+    load();
+
     ws.ref().child('partials/' + url.param('key')).on('child_changed', function(snap) {
         $('#changed').toggle(false).removeClass('hidden').addClass('absolute').fadeIn(500).delay(2).fadeOut(1000);
+
     });
-    
 </script>

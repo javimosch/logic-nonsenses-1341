@@ -19,9 +19,9 @@
     z-index: 1500;
     left: -80px;
     
-    -webkit-box-shadow: 13px 2px 125px 0px rgba(255,255,255,1);
--moz-box-shadow: 13px 2px 125px 0px rgba(255,255,255,1);
-box-shadow: 13px 2px 125px 0px rgba(255,255,255,1)
+   -webkit-box-shadow: -2px 2px 25px 21px rgba(255,255,255,1);
+-moz-box-shadow: -2px 2px 25px 21px rgba(255,255,255,1);
+box-shadow: -2px 2px 25px 21px rgba(255,255,255,1);
 }
 
 .prix__main .btn-by-list {
@@ -31,9 +31,9 @@ box-shadow: 13px 2px 125px 0px rgba(255,255,255,1)
     right: -80px;
     margin: 0px;
     
-    -webkit-box-shadow: 13px 2px 125px 0px rgba(255,255,255,1);
--moz-box-shadow: 13px 2px 125px 0px rgba(255,255,255,1);
-box-shadow: 13px 2px 125px 0px rgba(255,255,255,1)
+    -webkit-box-shadow: -2px 2px 25px 21px rgba(255,255,255,1);
+-moz-box-shadow: -2px 2px 25px 21px rgba(255,255,255,1);
+box-shadow: -2px 2px 25px 21px rgba(255,255,255,1);
 }
 
 

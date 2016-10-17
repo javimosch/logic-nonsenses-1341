@@ -7,8 +7,16 @@
             var match = location.search.match(new RegExp("[?&]" + key + "=([^&]+)(&|$)"));
             return match && decodeURIComponent(match[1].replace(/\+/g, " "));
         }
+
+        function route(newRoute) {
+            if (newRoute) {
+                window.location = newRoute;
+            }
+            return window.location.href.replace(window.location.origin, '');
+        }
         return {
-            param: qs
+            param: qs,
+            route: route
         };
     }());
 
@@ -54,7 +62,7 @@
                 })
 
             },
-            ref:function(){
+            ref: function() {
                 var ref = firebase.database().ref('/admin');
                 return ref;
             },
@@ -85,9 +93,57 @@
     }());
 
 
+    var toast = (function() {
+        var self = {};
+        function fn(id,heading,icon,text, hideAfter) {
+            var o = $.toast({
+                heading:heading,
+                icon:icon,
+                text: text,
+                showHideTransition: 'slide', // It can be plain, fade or slide
+                bgColor: '#5D9FFE', // Background color for toast
+                textColor: 'white', // text color
+                allowToastClose: false, // Show the close button or not
+                hideAfter: hideAfter || 5000, // `false` to make it sticky or time in miliseconds to hide after
+                stack: 5, // `fakse` to show one stack at a time count showing the number of toasts that can be shown at once
+                textAlign: 'left', // Alignment of text i.e. left, right, center
+                position: 'bottom-left' // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values to position the toast on page
+            });
+            self[id] = o;
+            return actions;
+        }
+        var actions = {
+            info:function(id,text,hideAfter){
+                fn(id,'Info','info',text,hideAfter)
+            },
+            clearAll:function(){
+                $.toast().reset('all');
+                return actions;
+            },
+            clear:function(id,timeout){
+                setTimeout(function(){
+                    self[id] && self[id].reset && self[id].reset();
+                },timeout)
+                return actions;
+            }
+        };
+        return actions;
+    })();
+    
+
+
     function logout() {
         ws.logout(function() {
             window.location = '/admin';
         });
     }
+
+    firebase.auth().onAuthStateChanged(function(user) {
+        console.warn(user)
+
+        if (!user && url.route() !== '/admin/') {
+            url.route('/admin');
+        }
+
+    });
 </script>
