@@ -1,0 +1,96 @@
+<div class="row relative">
+    <div class="title-bar">
+        <div class="col-md-4">
+            <h2 class="title-bar__title">Changelog</h2>
+        </div>
+        <div class="col-md-4 col-sm-offset-4">
+
+        </div>
+    </div>
+</div>
+<div class="row section col-margin-5">
+    <div class="col-sm-12">
+
+        <div class="row col-margin-5">
+            <div class="col-md-10 col-md-offset-1 relative">
+                <a class="view white" href="#" target="_blank">
+                    <h3>View in gitlab</h3>
+                </a>
+            </div>
+        </div>
+        <div class="row col-margin-5">
+            <div class="col-md-10 col-md-offset-1 relative">
+                <style type="text/css" scoped>
+                    .list-group-item {
+                        background: transparent;
+                        border: none;
+                    }
+                    
+                    .list-group-item p,
+                    .list-group-item span,
+                    .list-group-item strong,
+                    .list-group-item i {
+                        text-align: left!important;
+                        color: white;
+                    }
+                    
+                    .list-group-item a {
+                        color: red;
+                    }
+                    
+                    .list-group-item img {
+                        width: 100px;
+                    }
+                </style>
+                <ul class="list-group">
+                    <li id="item" class="hidden list-group-item">
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img class="thumbnail" src="">
+                                <p class="text-left"><span class="author"></span></p>
+                            </div>
+                            <div class="col-md-9">
+                                <!-- <p class="text-left">id&nbsp;<span class="id"></span></p> -->
+                                <p class="description text-left"></p>
+                            </div>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var local = store.get();
+
+        co(function*() {
+            console.debug("Feed: fetching");
+            var res = yield http.getJSON('http://rss2json.com/api.json?rss_url=https%3A%2F%2Fgitlab.com%2Fshopmycourses%2Fshopmycourses-web.atom%3Fprivate_token%3DJHXysxgWyqRpdLwaDtTq');
+            console.debug("Feed: ", res);
+
+            $('.title').html(res.feed.title);
+            $('.view').css('href', res.feed.link);
+
+            var template = $('#item');
+            var ul = template.parent();
+            var lis = [];
+            res.items.forEach(function(item) {
+                var li = template.clone().removeClass('hidden').attr('id', item.guid);
+               // li.find('.id').html(item.guid);
+                li.find('.description').html(item.description);
+                li.find('.thumbnail').attr('src', item.thumbnail);
+                li.find('.author').html(item.author);
+                li.find('a').attr('target', '_blank');
+                lis.push(li); //.html(item.fileName).addClass('x').removeClass('hidden'));
+            });
+            ul.append(lis);
+            toast.clear('L', 1000).info('F', 'Fetch complete');
+
+
+        }).catch(function(err) {
+
+            console.error(err.stack);
+        });
+    </script>
