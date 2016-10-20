@@ -28,15 +28,17 @@
 }
 
 #html-shorcuts {
-    background: white;
-    position: absolute;
-    width: 400px;
-    right: 0px;
-    z-index: 999999;
-    border: 5px solid gray;
-    padding: 25px 15px;
-    top: 7vh;
+    /* background: white; */
+    padding: 25px;
+    margin-bottom: 150px;
+}
+#html-shorcuts h4,#html-shorcuts h2, #html-shorcuts p, #html-shorcuts a{
+    color: white;
+}
+#html-shorcuts a{}
+#html-shorcuts a:hover{
+    color: red;
 }
 #html-shorcuts h4{
-    color:initial;
+    color: black;
 }

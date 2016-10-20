@@ -25,6 +25,16 @@ html {
     background-size: cover;
 }
 
+.bg2 {
+    background: url(/img/bg2.jpg) no-repeat center center fixed;
+}
+.bg3 {
+    background: url(/img/bg3.jpg) no-repeat center center fixed;
+}
+.bg4 {
+    background: url(/img/bg4.jpg) no-repeat center center fixed;
+}
+
 #wrapper {
     height: 100%;
     min-height: 100%;
