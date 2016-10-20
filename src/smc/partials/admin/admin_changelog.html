@@ -13,6 +13,7 @@
 
         <div class="row col-margin-5">
             <div class="col-md-10 col-md-offset-1 relative">
+                <h3 class="white updatedAt"></h3>
                 <a class="view white" href="#" target="_blank">
                     <h3>View in gitlab</h3>
                 </a>
@@ -76,13 +77,18 @@
 
         co(function*() {
             console.debug("Feed: fetching");
-            var url = 'http://xml2json.herokuapp.com/?url=https%3A%2F%2Fgitlab.com%2Fshopmycourses%2Fshopmycourses-web.atom%3Fprivate_token%3DJHXysxgWyqRpdLwaDtTq&callback=xxxfeed';
+            var url = 'https://xml2json.herokuapp.com/?url=https%3A%2F%2Fgitlab.com%2Fshopmycourses%2Fshopmycourses-web.atom%3Fprivate_token%3DJHXysxgWyqRpdLwaDtTq&callback=xxxfeed';
             //'https://gitlab.com/shopmycourses/shopmycourses-web.atom?private_token=JHXysxgWyqRpdLwaDtTq'
             var data = yield http.jsonp(url, 'xxxfeed');
             feed = data.feed;
 
             //console.debug("Feed: ", data);
-
+            
+            var updated = yield http.get('/updated');
+            
+            console.debug('DEBUG: updated at ',updated);
+            
+            $('.updatedAt').html("Last update: <span style='color:mediumslateblue;'>"+parser.toDateString(updated,1)+'</span> ('+window.location.host+')');
             $('.view').attr('href', data.feed.id);
 
             var template = $('#item');

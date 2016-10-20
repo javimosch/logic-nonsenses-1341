@@ -2,6 +2,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/co/4.1.0/index.min.js"></script>
 <!--BUNDLE_JS_1-->
 <script type="text/javascript" src="/vendor/xml-to-json.js"></script>
+<script src="{{root}}vendor/moment.js"></script>
+<script src="{{root}}vendor/moment_locale_fr.js"></script>
 <!--/BUNDLE_JS_1-->
 <script type="text/javascript">
     /*global $*/
@@ -210,7 +212,12 @@
             }
             return obj;
         };
+        function toDateString(t,formatType){
+             if(formatType==1) return moment(new Date(t)).format('DD-MM-YY HH[h]mm');
+             if(formatType==2) return moment(new Date(t)).format('[Le] dddd DD MMMM YY [à] HH[h]mm');
+        }
         return {
+            toDateString:toDateString,
             xmlToJson: xmlToJson
         };
     })();

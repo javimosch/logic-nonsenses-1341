@@ -1,1 +1,0 @@
-app=$1 PROD=0 node ./node_modules/concurrently/src/main.js --kill-others 'node index.js' 'node server.js'

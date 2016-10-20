@@ -5,21 +5,18 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "./node_modules/bower/bin/bower install",
-    "start": "node index.js",
     "test": "jasmine-node spec",
     "install-safe": "npm i --save $1 --no-bin-links",
-    "commit": "git add . | git commit --allow-empty-message --all -m",
-    "push": "git push $1 master",
-    "serve": "serve -p 8080",
-    "build": "PROD=1 node index.js",
-    "dev": "node ./node_modules/concurrently/src/main.js --kill-others \"npm run start\" \"npm run server\"",
     "gitlog": "git log --graph --pretty=oneline --abbrev-commit",
-    "clear": "node lib/he.task.clear.js",
-    "local": "ROOT_MODE=1 ./dev.sh smc",
-    "deploy": "./ftp_deploy.sh smc",
-    "server": "node server.js",
-    "release": "./build.sh smc",
-    "heroku": "npm-run-parallel deploy server",
+    "clear": "node ./lib/tasks/task.clear.js",
+    "local": "./scripts/generate-updated-timestamp.sh && ROOT_MODE=1 ./scripts/dev.sh smc",
+    "version":"./scripts/generate-version.sh", 
+    "deploy": "./scripts/ftp_deploy.sh smc",
+    "server": "node ./lib/server.js",
+    "release": "./scripts/build.sh smc",
+    "herokudeploy":"DEPLOY_PRESERVE_FILES=1 ./scripts/ftp_deploy.sh smc",
+    "heroku": "./scripts/generate-updated-timestamp.sh && npm-run-parallel herokudeploy server",
+    "serve": "npm-run-parallel release server",
     "git": "ungit --port 8082"
   },
   "repository": {
@@ -29,9 +26,9 @@
   "keywords": [
     "handlebars",
     "express",
-    "gui"
+    "ssg"
   ],
-  "author": "",
+  "author": "Javier Arancibia",
   "license": "ISC",
   "bugs": {
     "url": ""

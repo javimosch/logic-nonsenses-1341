@@ -1,0 +1,1 @@
+app=$1 PROD=0 node ./node_modules/concurrently/src/main.js --kill-others 'node ./lib/entry_point.js' 'node ./lib/server.js'
