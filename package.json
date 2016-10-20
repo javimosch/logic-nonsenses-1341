@@ -18,7 +18,8 @@
     "deploy": "./ftp_deploy.sh smc",
     "server": "node server.js",
     "release": "./build.sh smc",
-    "heroku": "npm-run-parallel release server"
+    "heroku": "npm-run-parallel deploy server",
+    "git":"ungit --port 8082"
   },
   "repository": {
     "type": "git",
