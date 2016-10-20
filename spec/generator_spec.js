@@ -53,8 +53,8 @@ describe("Staticstuff generator common test", function() {
         describe("existance of required folders for " + projectName, function() {
 
             folders.forEach(folder => {
-                it("returns true when the path exists: " + path.join('src',folder,projectName), function(done) {
-                    expect(folderExistsInSrc(folder, projectName)).toBeTruthy()
+                it("returns true when the path exists: " + path.join('src',projectName,folder), function(done) {
+                    expect(folderExistsInSrc(projectName,folder)).toBeTruthy()
                     done();
                 });
             })
