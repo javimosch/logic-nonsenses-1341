@@ -1,3 +1,13 @@
+echo VALIDATING .ENV 
+
+if [ -f ./.env ] 
+then
+    echo "Found";
+else
+    echo '' > .env;
+    echo "Created (placeholder)";
+fi
+
 echo BUILDING $1
 app=$1 PROD=1 node index.js; 
 echo COPYING CONFIG
@@ -9,3 +19,5 @@ echo CREATING VERSION FILE
 mkdir ./dist-production/version;
 git branch > ./dist-production/version/index.html;
 npm run gitlog >> ./dist-production/version/index.html;
+
+
