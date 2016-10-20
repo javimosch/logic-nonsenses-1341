@@ -1,5 +1,7 @@
 //var express = require('express');
-require('dotenv').config();
+require('dotenv').config({
+	silent: true
+});
 var argv = require('yargs').argv;
 var exeCute = require('exe');
 var fs = require('fs');
