@@ -8,7 +8,7 @@ angular.module('shopmycourse.services')
 */
 
 .service('ConfigAPI', function (API) {
-    var path = 'files/config2.json';
+    var path = 'files/config.json';
     var resource = API(path, { },
     {
       'fetch': { method: 'GET', url: path, headers: {}, cache: false, isArray: false }

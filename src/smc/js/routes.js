@@ -262,6 +262,13 @@ angular.module('shopmycourse.routes', [])
       }
     }
   })
+  
+   .state('newOrderShop', {
+    url: ROOT + '/new-order/shop',
+    cache: false,
+    templateUrl: ROOT + 'templates/Orders/booking_shop.html'
+    //controller: 'OrdersAddressCtrl'
+  })
 
   .state('tabs.addressorder', {
     url: ROOT + '/order/create/address',

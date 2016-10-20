@@ -1,7 +1,8 @@
 {
-  "name": "ShopMyCourse",
+  "name": "smc",
   "private": "true",
   "dependencies": {
+    "angular": "#1.5.8",
     "angular-toastr": "~1.6.0",
     "angular-moment": "~0.10.3",
     "moment": "~2.12.0",
@@ -18,6 +19,7 @@
     "angular-bootstrap": "^2.1.4"
   },
   "resolutions": {
-    "moment": ">=2.8.0 <2.11.0"
+    "moment": ">=2.8.0 <2.11.0",
+    "angular": "1.5.8"
   }
 }

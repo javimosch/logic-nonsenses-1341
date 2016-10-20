@@ -68,7 +68,9 @@ angular.module('shopmycourse.controllers')
    */
   $scope.scheduleOrder = function() {
     CurrentDelivery.clear();
-    $state.go('tabs.scheduleorder');
+    //$state.go('tabs.scheduleorder');
+    $state.go('newOrderShop');
+    
   };
 
   /**
