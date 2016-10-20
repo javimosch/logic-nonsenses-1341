@@ -12,6 +12,6 @@ test:
 dev:
   type: deploy
   script:
-  - dpl --provider=heroku --app=shopmycourses-web-dev --api-key=$HEROKU_API_KEY
+  - dpl --provider=heroku --app=smc-dev-server --api-key=$HEROKU_API_KEY
   only:
-  - master
+  - staging
