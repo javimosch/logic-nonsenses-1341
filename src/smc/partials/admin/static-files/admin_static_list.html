@@ -1,19 +1,22 @@
 <div class="row relative">
     <div class="title-bar">
         <div class="col-md-10">
-            <h2 class="title-bar__title">Views</h2>
+            <h2 class="title-bar__title">Pages</h2>
         </div>
     </div>
 </div>
 <div class="row section col-margin-7">
     <div class="col-sm-12">
+        
          <div class="row">
             <div class="col-md-10 col-md-offset-1 relative">
                 <h4>Notes</h4>
-                <p class="white text-left">Here you will see the partial files that belongs to the project. Editing and adding new files should be possible. Once you have your project locally, you will be able to fetch all the changes and new files that were added using this section directly from database and that way, generate the files and add them to git to maintain control version.
+                <p class="white text-left">Here you will see the static files that belongs to the project. Editing and adding new files should be possible. Once you have your project locally, you will be able to fetch all the changes and new files that were added using this section directly from database and that way, generate the files and add them to git to maintain control version.
                 </p>
             </div>
         </div>
+
+        
         <div class="col-md-3 visible-md-block visible-lg-block relative">
         </div>
         <div class="col-sm-12 col-md-6">
@@ -28,7 +31,7 @@
     <script type="text/javascript">
         var local = store.get();
 
-        var paginate = ws.collection('partials').paginate(500);
+        var paginate = ws.collection('partials').paginate(10);
 
         function details(el) {
             var key = $(el).attr('data-key');
@@ -50,8 +53,8 @@
 
         }
 
-        toast.info('L', 'Loading', 99999);
-        next();
+       // toast.info('L', 'Loading', 99999);
+        //next();
 
 
        
