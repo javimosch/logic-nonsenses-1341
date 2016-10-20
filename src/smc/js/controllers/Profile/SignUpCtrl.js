@@ -120,21 +120,31 @@ angular.module('shopmycourse.controllers')
    * @name $scope.signUpWithGoogle
    * @description Inscription avec Google
    */
-  $scope.signUpWithGoogle = function(validate) {
+  $scope.signUpWithGoogle = function(validate,modalData) {
     if (!validate) {
       return socialSignInModal.show({
         title: 'Inscription avec Google'
       }).then(function(result) {
         $log.debug('SignUp: $modal.resolve ' + result);
-        if (!result) return;
-        $scope.signUpWithGoogle(true);
+        if (!result.phone) return console.warn('DEBUG: social signup phone required');
+        $scope.signUpWithGoogle(true,result);
       });
     }
     if (!validateSocialAuthSignUpFields()) return;
     var provider = new window.firebase.auth.GoogleAuthProvider();
     window.firebase.auth().signInWithPopup(provider).then(function(result) {
       $log.info('SignIn: social auth google success idToken?', result.credential.idToken != undefined);
+      
+      //return console.log('SignIn: Google user',result);
+      
+      var displayName = result.user.displayName.split(' ');
+      var displayFirstName = displayName && displayName[0];
+      var displayLastName = displayName && displayName.length>=2 && displayName[1];
+      if(displayFirstName) $scope.user.firstname = displayFirstName;
+      if(displayLastName) $scope.user.lastname = displayLastName;
+      
       $scope.user.email = result.user.email;
+      $scope.user.phone = modalData.phone;
       $scope.user.id_token = result.credential.idToken || 'invalid';
       $scope.user.auth_method = 'google';
       $scope.signUp();
@@ -200,10 +210,12 @@ angular.module('shopmycourse.controllers')
     isSignup: $scope.isSignup || false,
     openCGU: $scope.openCGU,
     openLemonWayCGU: $scope.openLemonWayCGU,
+    user:{
+      phone:''
+    },
     ok: function() {
       $log.debug('SignIn: $modal.scope.ok');
-
-      this.resolveModal(true);
+      this.resolveModal(this.user);
     },
     close: function() {
       $log.debug('SignIn: $modal.scope.close');
