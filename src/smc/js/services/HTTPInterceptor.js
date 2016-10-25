@@ -7,7 +7,7 @@ angular.module('shopmycourse.services')
  * @description Intercepteur des requêtes HTTP
 */
 
-.factory('HTTPInterceptor', function ($q, $injector, Configuration) {
+.factory('HTTPInterceptor', function ($q, $injector, Configuration,$log) {
 
   var token = 'Fetching...';
   // CurrentUser = $injector.get('CurrentUser');
@@ -61,6 +61,9 @@ angular.module('shopmycourse.services')
           $injector.get('toastr').error(Configuration.errors[response.data.notice]);
         } else {
           $injector.get('toastr').error(response.data.notice || 'Une erreur inconnue est survenue');
+          if(response.data.error){
+            $log.warn('WARN: ',response.data.error,response.data.code||'(No code)');
+          }
         }
 
       } else {

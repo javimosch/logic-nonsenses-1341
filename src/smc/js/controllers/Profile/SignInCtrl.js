@@ -59,7 +59,7 @@ angular.module('shopmycourse.controllers')
 
         $state.go('tabs.home');
         if ($scope.user.email) {
-          toastr.success('Welcome ' + $scope.user.email + '!', 'Authentification');
+          toastr.info('Welcome ' + $scope.user.email + '!', 'Authentification');
         }
         $scope.init();
       }
